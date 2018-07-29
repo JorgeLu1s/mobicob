@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id          :bigint(8)        not null, primary key
+#  finish_date :date
+#  init_date   :date
+#  number      :integer
+#  source      :string
+#  state       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  source: MyString
+  state: MyString
+  init_date: 2018-07-29
+  finish_date: 2018-07-29
+
+two:
+  number: 1
+  source: MyString
+  state: MyString
+  init_date: 2018-07-29
+  finish_date: 2018-07-29
