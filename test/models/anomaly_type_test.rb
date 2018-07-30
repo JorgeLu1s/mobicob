@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: anomalies
+# Table name: anomaly_types
 #
 #  id          :bigint(8)        not null, primary key
 #  code        :integer
@@ -10,14 +10,10 @@
 #  updated_at  :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'test_helper'
 
-one:
-  code: 1
-  name: MyString
-  description: MyString
-
-two:
-  code: 1
-  name: MyString
-  description: MyString
+class AnomalyTypeTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

@@ -36,7 +36,11 @@
 #  unicom            :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  delegation_id     :integer
 #
 
 class Client < ApplicationRecord
+  has_many :tasks
+
+  belongs_to :delegation, dependent: :nullify
 end

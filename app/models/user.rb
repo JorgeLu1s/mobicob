@@ -27,6 +27,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  contractor_id          :integer
+#  role_id                :integer
 #
 # Indexes
 #
@@ -39,4 +40,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
+
+  belongs_to :role
+  belongs_to :contractor
+
+  has_many :assignments
 end

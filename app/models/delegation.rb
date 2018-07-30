@@ -10,4 +10,5 @@
 #
 
 class Delegation < ApplicationRecord
+  has_many :clients
 end

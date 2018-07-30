@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: anomalies
+# Table name: anomaly_types
 #
 #  id          :bigint(8)        not null, primary key
 #  code        :integer
@@ -10,10 +10,6 @@
 #  updated_at  :datetime         not null
 #
 
-require 'test_helper'
-
-class AnomalyTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class AnomalyType < ApplicationRecord
+  has_many :assignments
 end

@@ -11,4 +11,5 @@
 #
 
 class ResultType < ApplicationRecord
+  has_many :assignments
 end

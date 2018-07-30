@@ -11,4 +11,5 @@
 #
 
 class ManagementType < ApplicationRecord
+  has_many :assignments
 end

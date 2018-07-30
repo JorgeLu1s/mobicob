@@ -10,4 +10,5 @@
 #
 
 class Contractor < ApplicationRecord
+  has_many :users
 end

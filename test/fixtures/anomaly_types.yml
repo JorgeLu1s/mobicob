@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: anomalies
+# Table name: anomaly_types
 #
 #  id          :bigint(8)        not null, primary key
 #  code        :integer
@@ -10,5 +10,14 @@
 #  updated_at  :datetime         not null
 #
 
-class Anomaly < ApplicationRecord
-end
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  name: MyString
+  description: MyString
+
+two:
+  code: 1
+  name: MyString
+  description: MyString
