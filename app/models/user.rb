@@ -19,6 +19,7 @@
 #  name                   :string
 #  password               :string
 #  phone                  :string
+#  position               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -27,6 +28,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  contractor_id          :integer
+#  delegation_id          :integer
 #  role_id                :integer
 #
 # Indexes
@@ -43,6 +45,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   belongs_to :contractor
+  belongs_to :delegation
 
   has_many :assignments
 end
