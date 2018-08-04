@@ -9,9 +9,10 @@ ActiveAdmin.register User do
     end
   end
 
-  filter :position
   filter :delegation
+  filter :contractor
   filter :role
+  filter :position
   filter :active
 
   index do
