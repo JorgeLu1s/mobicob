@@ -13,8 +13,8 @@
 #
 
 class Task < ApplicationRecord
-  belongs_to :campaign, dependent: :nullify
-  belongs_to :client, dependent: :nullify
+  belongs_to :campaign, dependent: :destroy
+  belongs_to :client, dependent: :destroy
 
   has_many :assignments
 end
