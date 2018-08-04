@@ -5,7 +5,6 @@
 #  id                     :bigint(8)        not null, primary key
 #  active                 :boolean
 #  address                :string
-#  creation               :date
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -24,7 +23,6 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
-#  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  contractor_id          :integer

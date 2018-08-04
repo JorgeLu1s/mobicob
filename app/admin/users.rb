@@ -1,11 +1,18 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation
+
+  permit_params %i[id email password password_confirmation id_number name
+    lastname position delegation_id contractor_id role_id phone address email active]
 
   controller do
     def action_methods
       super - ['destroy']
     end
   end
+
+  filter :position
+  filter :delegation
+  filter :role
+  filter :active
 
   index do
     selectable_column
@@ -15,6 +22,7 @@ ActiveAdmin.register User do
     column :lastname
     column :position
     column :delegation
+    column :contractor
     column :role
     column :phone
     column :email
@@ -22,10 +30,13 @@ ActiveAdmin.register User do
     actions
   end
 
-  filter :position
-  filter :delegation
-  filter :role
-  filter :active
+  show do |user|
+    attributes_table do
+      rows :id, :id_number, :name, :lastname, :position, :delegation, :role,
+      :phone, :address, :email, :active, :contractor, :created_at, :updated_at,
+      :current_sign_in_at, :sign_in_count
+    end
+  end
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -35,6 +46,7 @@ ActiveAdmin.register User do
       f.input :lastname
       f.input :position
       f.input :delegation
+      f.input :contractor
       f.input :role
       f.input :phone
       f.input :address
