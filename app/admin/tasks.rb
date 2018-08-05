@@ -6,8 +6,8 @@ ActiveAdmin.register Task do
   end
 
   filter :period
-  filter :campaign_id
-  filter :client_id
+  filter :campaign
+  filter :client
 
   index do
     selectable_column

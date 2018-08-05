@@ -10,5 +10,5 @@
 #
 
 class Contractor < ApplicationRecord
-  has_many :users, dependent: :nullify
+  has_many :users, dependent: :destroy
 end
