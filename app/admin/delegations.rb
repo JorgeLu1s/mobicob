@@ -1,6 +1,8 @@
 ActiveAdmin.register Delegation do
 permit_params %i[id code name]
 
+  menu priority: 7
+
   controller do
     
   end

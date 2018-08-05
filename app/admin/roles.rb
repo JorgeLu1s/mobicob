@@ -1,6 +1,8 @@
 ActiveAdmin.register Role do
   permit_params %i[id code name description]
 
+  menu priority: 11
+
   controller do
     
   end

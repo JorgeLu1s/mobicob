@@ -1,6 +1,8 @@
 ActiveAdmin.register ManagementType do
   permit_params %i[id code name description]
 
+  menu priority: 8
+
   controller do
     
   end

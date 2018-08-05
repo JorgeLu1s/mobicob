@@ -7,6 +7,8 @@ ActiveAdmin.register Client do
     street_name street_type third_party_debt unicom created_at 
     updated_at delegation_id ]
 
+  menu priority: 5
+
   controller do
     
   end

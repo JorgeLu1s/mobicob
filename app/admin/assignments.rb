@@ -5,6 +5,8 @@ ActiveAdmin.register Assignment do
     stimated_time anomaly_type_id management_type_id result_type_id 
     task_id user_id ]
 
+  menu priority: 4
+
   controller do
     
   end

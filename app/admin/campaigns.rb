@@ -1,6 +1,8 @@
 ActiveAdmin.register Campaign do
   permit_params %i[id number source state init_date finish_date]
 
+  menu priority: 2
+
   controller do
     
   end
