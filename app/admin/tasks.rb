@@ -41,9 +41,7 @@ ActiveAdmin.register Task do
       f.input :plan
       f.input :validity, as: :select,
         collection: Task.validities.keys.map{ |item| [item.titleize, item] }
-      f.input :campaign, as: :select, collection: Campaign.all.map {
-                  |item| [item.number, item.id]
-                }, :include_blank => true
+      f.input :campaign
       f.input :client
     end
     f.actions

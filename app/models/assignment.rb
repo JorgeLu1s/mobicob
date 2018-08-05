@@ -34,4 +34,8 @@ class Assignment < ApplicationRecord
   belongs_to :management_type, dependent: :destroy, required: false
   belongs_to :result_type, dependent: :destroy, required: false
   belongs_to :anomaly_type, dependent: :destroy, required: false
+
+  def to_s
+    "#{task.campaign.number}-#{task.id}-#{id}"
+   end
 end

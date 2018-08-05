@@ -16,4 +16,8 @@ class Campaign < ApplicationRecord
   has_many :tasks
 
   enum state: { generated: "generated", active: "active", finished: "finished" }
+
+  def to_s
+    number
+   end
 end

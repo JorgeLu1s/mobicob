@@ -19,4 +19,8 @@ class Task < ApplicationRecord
   has_many :assignments
 
   enum validity: { daily: "daily", weekly: "weekly", monthly: "monthly" }
+
+  def to_s
+    "#{campaign.number}-#{id}"
+   end
 end

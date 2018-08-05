@@ -48,9 +48,7 @@ ActiveAdmin.register Assignment do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs do
-      f.input :task, as: :select, collection: Task.all.map {
-                  |item| [item.id, item.id]
-                }, :include_blank => true
+      f.input :task
       f.input :user
       f.input :due_date
       f.input :estimated_time
