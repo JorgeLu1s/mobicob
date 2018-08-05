@@ -7,6 +7,7 @@
 #  commitment_date    :date
 #  due_date           :date
 #  email              :string
+#  estimated_time     :time
 #  id_number          :integer
 #  latitude           :string
 #  longitude          :string
@@ -17,7 +18,6 @@
 #  personal_contact   :boolean
 #  phone              :string
 #  reading_signature  :integer
-#  stimated_time      :date
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  anomaly_type_id    :integer
@@ -31,7 +31,7 @@ class Assignment < ApplicationRecord
   belongs_to :task, dependent: :destroy
   belongs_to :user, dependent: :destroy
 
-  belongs_to :management_type, dependent: :destroy
-  belongs_to :result_type, dependent: :destroy
-  belongs_to :anomaly_type, dependent: :destroy
+  belongs_to :management_type, dependent: :destroy, required: false
+  belongs_to :result_type, dependent: :destroy, required: false
+  belongs_to :anomaly_type, dependent: :destroy, required: false
 end

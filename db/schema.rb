@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_05_165642) do
+ActiveRecord::Schema.define(version: 2018_08_05_181016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_165642) do
 
   create_table "assignments", force: :cascade do |t|
     t.date "due_date"
-    t.date "stimated_time"
     t.date "management_date"
     t.string "collection_entity"
     t.date "payment_date"
@@ -60,6 +59,7 @@ ActiveRecord::Schema.define(version: 2018_08_05_165642) do
     t.integer "management_type_id"
     t.integer "result_type_id"
     t.integer "anomaly_type_id"
+    t.time "estimated_time"
   end
 
   create_table "campaigns", force: :cascade do |t|

@@ -1,14 +1,14 @@
 ActiveAdmin.register Assignment do
-  permit_params %i[ id collection_entity commitment_date due_date 
-    email id_number latitude longitude management_date observations 
-    payment_date payment_holder personal_contact phone reading_signature 
-    stimated_time anomaly_type_id management_type_id result_type_id 
+  permit_params %i[ id collection_entity commitment_date due_date
+    email id_number latitude longitude management_date observations
+    payment_date payment_holder personal_contact phone reading_signature
+    estimated_time anomaly_type_id management_type_id result_type_id
     task_id user_id ]
 
   menu priority: 4
 
   controller do
-    
+
   end
 
   filter :task
@@ -23,7 +23,9 @@ ActiveAdmin.register Assignment do
     column :task
     column :user
     column :due_date
-    column :stimated_time
+    column :estimated_time do |assignment|
+      assignment.estimated_time.strftime('%H:%M')
+    end
     column :created_at
     column :management_date
     actions
@@ -31,21 +33,27 @@ ActiveAdmin.register Assignment do
 
   show do |assignment|
     attributes_table do
-      rows :id, :collection_entity, :commitment_date, :due_date, 
-          :email, :id_number, :latitude, :longitude, :management_date, 
-          :observations, :payment_date, :payment_holder, :personal_contact, 
-          :phone, :reading_signature, :stimated_time, :anomaly_type, 
-          :management_type, :result_type, :task, :user
+      rows :id, :task, :user, :due_date
+      row :estimated_time do
+        assignment.estimated_time.strftime('%H:%M')
+      end
+      rows :management_date,
+        :management_type, :result_type, :anomaly_type, :collection_entity,
+        :payment_date, :commitment_date, :personal_contact, :id_number,
+        :payment_holder, :phone, :email, :observations, :reading_signature,
+        :latitude, :longitude
     end
   end
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs do
-      f.input :task
+      f.input :task, as: :select, collection: Task.all.map {
+                  |item| [item.id, item.id]
+                }, :include_blank => true
       f.input :user
       f.input :due_date
-      f.input :stimated_time
+      f.input :estimated_time
       unless f.object.new_record?
         f.input :management_date
         f.input :management_type
