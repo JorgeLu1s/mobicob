@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     devise_scope :user do
       post '/sign_in', to: 'sessions#create'
     end
+
+    get '/assignments', to: 'assignments#index'
   end
 end
