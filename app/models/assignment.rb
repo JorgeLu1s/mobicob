@@ -28,10 +28,10 @@
 #
 
 class Assignment < ApplicationRecord
-  belongs_to :task, dependent: :nullify
-  belongs_to :user, dependent: :nullify
+  belongs_to :task, dependent: :destroy
+  belongs_to :user, dependent: :destroy
 
-  belongs_to :management_type, dependent: :nullify
-  belongs_to :result_type, dependent: :nullify
-  belongs_to :anomaly_type, dependent: :nullify
+  belongs_to :management_type, dependent: :destroy
+  belongs_to :result_type, dependent: :destroy
+  belongs_to :anomaly_type, dependent: :destroy
 end

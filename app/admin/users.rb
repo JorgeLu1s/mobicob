@@ -1,26 +1,62 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation
+
+  permit_params %i[id email password password_confirmation id_number name
+    lastname position delegation_id contractor_id role_id phone address email active]
+
+  controller do
+    def action_methods
+      super - ['destroy']
+    end
+  end
+
+  filter :delegation
+  filter :contractor
+  filter :role
+  filter :position
+  filter :active
 
   index do
     selectable_column
     id_column
+    column :id_number
+    column :name
+    column :lastname
+    column :position
+    column :delegation
+    column :contractor
+    column :role
+    column :phone
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
-    column :created_at
+    column :active
     actions
   end
 
-  filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
+  show do |user|
+    attributes_table do
+      rows :id, :id_number, :name, :lastname, :position, :delegation, :role,
+      :phone, :address, :email, :active, :contractor, :created_at, :updated_at,
+      :current_sign_in_at, :sign_in_count
+    end
+  end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs do
+      f.input :id_number
+      f.input :name
+      f.input :lastname
+      f.input :position
+      f.input :delegation
+      f.input :contractor
+      f.input :role
+      f.input :phone
+      f.input :address
       f.input :email
-      f.input :password
-      f.input :password_confirmation
+      f.input :active
+      if f.object.new_record?
+        f.input :password
+        f.input :password_confirmation
+      end
     end
     f.actions
   end

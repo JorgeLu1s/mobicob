@@ -42,5 +42,5 @@
 class Client < ApplicationRecord
   has_many :tasks
 
-  belongs_to :delegation, dependent: :nullify
+  belongs_to :delegation, dependent: :destroy
 end
