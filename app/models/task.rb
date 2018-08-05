@@ -17,4 +17,6 @@ class Task < ApplicationRecord
   belongs_to :client, dependent: :destroy
 
   has_many :assignments
+
+  enum validity: { daily: "daily", weekly: "weekly", monthly: "monthly" }
 end

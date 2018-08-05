@@ -14,4 +14,6 @@
 
 class Campaign < ApplicationRecord
   has_many :tasks
+
+  enum state: { generated: "generated", active: "active", finished: "finished" }
 end
