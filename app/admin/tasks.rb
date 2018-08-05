@@ -1,6 +1,8 @@
 ActiveAdmin.register Task do
   permit_params %i[id period plan validity campaign_id client_id]
 
+  menu priority: 3
+
   controller do
     
   end

@@ -1,6 +1,8 @@
 ActiveAdmin.register AnomalyType do
   permit_params %i[id code name description]
 
+  menu priority: 10
+
   controller do
     
   end

@@ -2,6 +2,8 @@ ActiveAdmin.register Contractor do
 
   permit_params %i[id code name]
 
+  menu priority: 6
+
   controller do
     
   end

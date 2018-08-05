@@ -4,20 +4,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
-gem 'devise'
-gem 'activeadmin'
-gem 'rack-cors'
-gem 'knock', '~> 2.1', '>= 2.1.1'
-gem 'bcrypt', '~> 3.1.7'
-gem 'active_model_serializers', '~> 0.10.7'
-gem 'jbuilder', '~> 2.5'
-gem 'jwt'
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'active_model_serializers', '~> 0.10.7' # generate JSON manner
+gem 'activeadmin', '~> 1.3' # administration framework
+gem 'arctic_admin', '~> 1.5' # responsive theme for Active Admin
+gem 'bcrypt', '~> 3.1.7' # hashing passwords
+gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching
+gem 'devise', '~> 4.4', '>= 4.4.3' # authentication
+gem 'font-awesome-sass', '~> 5.2.0'
+gem 'jbuilder', '~> 2.5' # Create JSON structures via a Builder-style DSL
+gem 'jwt' # JSON Web Token
+gem 'knock', '~> 2.1', '>= 2.1.1' # Authentication based on JWT
+gem 'pg', '>= 0.18', '< 2.0' # Ruby interface for PostgreSQL
+gem 'puma', '~> 3.11' # HTTP 1.1 server
+gem 'rack-cors', '~> 1.0', '>= 1.0.2' # CORS compatibility
+gem 'rails', '~> 5.2.0' # full-stack web framework
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
