@@ -38,9 +38,13 @@ ActiveAdmin.register Campaign do
     f.semantic_errors *f.object.errors.keys
     f.inputs do
       f.input :number
-      f.input :state
+      f.input :state, as: :select,
+        collection: Campaign.states.keys.map{ |item| [item.titleize, item] }
       f.input :init_date
       f.input :finish_date
+      if f.object.new_record?
+        f.input :source, input_html: { value: "form" }, as: :hidden
+      end
     end
     f.actions
   end

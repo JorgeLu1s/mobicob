@@ -22,8 +22,8 @@ ActiveAdmin.register ResultType do
   show do |result_type|
     attributes_table do
       rows :id, :code, :name, :description, :created_at, :updated_at
-      row :assignments do
-          result_type.assignments.map{ |assignment| link_to(assignment.id, admin_assignment_path(assignment)) }.join(", ").html_safe
+      row :tasks do
+          result_type.tasks.map{ |task| link_to(task.id, admin_task_path(task)) }.join(", ").html_safe
       end
     end
   end

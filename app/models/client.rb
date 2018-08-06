@@ -10,7 +10,6 @@
 #  address           :string
 #  agreed_bills      :integer
 #  corregimiento     :string
-#  dataphone_payment :boolean
 #  departament       :string
 #  duplicator        :string
 #  energy_debt       :integer

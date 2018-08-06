@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_05_165642) do
+ActiveRecord::Schema.define(version: 2018_08_06_025311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,31 +35,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_165642) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "assignments", force: :cascade do |t|
-    t.date "due_date"
-    t.date "stimated_time"
-    t.date "management_date"
-    t.string "collection_entity"
-    t.date "payment_date"
-    t.date "commitment_date"
-    t.boolean "personal_contact"
-    t.integer "id_number"
-    t.string "payment_holder"
-    t.string "phone"
-    t.string "email"
-    t.string "observations"
-    t.integer "reading_signature"
-    t.string "latitude"
-    t.string "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "task_id"
-    t.integer "user_id"
-    t.integer "management_type_id"
-    t.integer "result_type_id"
-    t.integer "anomaly_type_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -103,7 +78,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_165642) do
     t.integer "financed_debt"
     t.integer "overdue_bills"
     t.integer "agreed_bills"
-    t.boolean "dataphone_payment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "delegation_id"
@@ -155,6 +129,26 @@ ActiveRecord::Schema.define(version: 2018_08_05_165642) do
     t.datetime "updated_at", null: false
     t.integer "campaign_id"
     t.integer "client_id"
+    t.integer "user_id"
+    t.date "due_date"
+    t.time "estimated_time"
+    t.date "management_date"
+    t.integer "management_type_id"
+    t.integer "result_type_id"
+    t.integer "anomaly_type_id"
+    t.string "collection_entity"
+    t.date "payment_date"
+    t.date "commitment_date"
+    t.boolean "personal_contact"
+    t.integer "id_number"
+    t.string "payment_holder"
+    t.string "phone"
+    t.string "email"
+    t.string "observations"
+    t.integer "reading_signature"
+    t.string "latitude"
+    t.string "longitude"
+    t.boolean "dataphone_payment"
   end
 
   create_table "users", force: :cascade do |t|

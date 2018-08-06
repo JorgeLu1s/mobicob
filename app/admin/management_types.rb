@@ -22,8 +22,8 @@ ActiveAdmin.register ManagementType do
   show do |management_type|
     attributes_table do
       rows :id, :code, :name, :description, :created_at, :updated_at
-      row :assignments do
-          management_type.assignments.map{ |assignment| link_to(assignment.id, admin_assignment_path(assignment)) }.join(", ").html_safe
+      row :tasks do
+          management_type.tasks.map{ |task| link_to(task.id, admin_task_path(task)) }.join(", ").html_safe
       end
     end
   end
