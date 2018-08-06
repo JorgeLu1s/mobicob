@@ -1,6 +1,6 @@
 ActiveAdmin.register Client do
   permit_params %i[ id AOL CGV NIC NIS address agreed_bills 
-    corregimiento dataphone_payment departament duplicator 
+    corregimiento departament duplicator
     energy_debt financed_debt id_number irregular_debt measurer 
     measurer_brand measurer_type municipality name neighborhood 
     number overdue_bills phone rate reading_itinerary route state 
@@ -44,7 +44,7 @@ ActiveAdmin.register Client do
       :id_number, :phone, :rate, :state, :route, :reading_itinerary, 
       :AOL, :measurer, :measurer_type, :measurer_brand, :energy_debt, 
       :irregular_debt, :third_party_debt, :financed_debt, 
-      :overdue_bills, :agreed_bills, :dataphone_payment, :created_at,
+      :overdue_bills, :agreed_bills, :created_at,
       :updated_at
       row :tasks do
           client.tasks.map{ |task| link_to(task.id, 
@@ -87,7 +87,6 @@ ActiveAdmin.register Client do
       f.input :financed_debt
       f.input :overdue_bills
       f.input :agreed_bills
-      f.input :dataphone_payment
     end
     f.actions
   end

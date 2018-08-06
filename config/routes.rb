@@ -10,6 +10,6 @@ Rails.application.routes.draw do
       post '/sign_in', to: 'sessions#create'
     end
 
-    get '/assignments', to: 'assignments#index'
+    get '/tasks', to: 'tasks#index'
   end
 end

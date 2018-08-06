@@ -45,5 +45,5 @@ class User < ApplicationRecord
   belongs_to :contractor
   belongs_to :delegation
 
-  has_many :assignments
+  has_many :tasks
 end
