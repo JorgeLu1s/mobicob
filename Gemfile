@@ -6,6 +6,7 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'active_model_serializers', '~> 0.10.7' # generate JSON manner
 gem 'activeadmin', '~> 1.3' # administration framework
+gem 'active_admin_importable', git: 'https://github.com/danielosorio83/active_admin_importable', branch: 'import-xls'
 gem 'arctic_admin', '~> 1.5' # responsive theme for Active Admin
 gem 'bcrypt', '~> 3.1.7' # hashing passwords
 gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching
