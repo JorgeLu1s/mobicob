@@ -21,6 +21,7 @@
 #  phone              :string
 #  plan               :string
 #  reading_signature  :integer
+#  used_time          :time
 #  validity           :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
