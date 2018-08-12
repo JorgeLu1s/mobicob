@@ -7,7 +7,38 @@ ActiveAdmin.register Task do
 
   menu priority: 3
 
-  controller do
+  action_item only: :index do
+    link_to 'Import Tasks', admin_tasks_import_path
+  end
+
+  collection_action :import_csv, method: :post do
+    begin
+      raise 'Must attach a file' if params[:file]==nil
+      CSV.foreach(params[:file].path, headers: true) do |row|
+
+        user = User.where(email: row["email"])
+        client = Client.where(NIC: row['Nic'])
+        campaign = Campaign.where(number: row["#Campaña"])
+
+        if user.any? && client.any? && campaign.any?
+          task = Task.new(
+            plan: row['Plan'],
+            due_date: row['F.Entrega'],
+            campaign_id: campaign.first.id,
+            client_id: client.first.id,
+            user_id: user.first.id,
+            estimated_time: row['Estimado']
+          )
+          task.save
+        else
+          raise '#Campaña, email and Nic are required and must be in the system'
+        end
+      end
+      redirect_to admin_tasks_path, notice: "CSV imported successfully!"
+    rescue StandardError => e
+      redirect_to admin_tasks_path, alert: e.to_s
+      puts e
+    end
     
   end
 
@@ -37,7 +68,11 @@ ActiveAdmin.register Task do
       rows :id, :period, :plan, :validity, :campaign, :client, :created_at,
       :updated_at, :user, :due_date
       row :estimated_time do
-        task.estimated_time.strftime('%H:%M')
+        if task.estimated_time == nil
+          '00:00'
+        else
+          task.estimated_time.strftime('%H:%M')
+        end
       end
       rows :management_date,
         :management_type, :result_type, :anomaly_type, :collection_entity,

@@ -41,5 +41,7 @@
 class Client < ApplicationRecord
   has_many :tasks
 
-  belongs_to :delegation, dependent: :destroy
+  belongs_to :delegation
+
+  validates :NIC, uniqueness: true
 end
