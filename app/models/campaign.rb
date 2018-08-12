@@ -14,6 +14,7 @@
 
 class Campaign < ApplicationRecord
   has_many :tasks
+  validates :number, uniqueness: true
 
   enum state: { generated: "generated", active: "active", finished: "finished" }
 

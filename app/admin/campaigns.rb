@@ -3,7 +3,86 @@ ActiveAdmin.register Campaign do
 
   menu priority: 2
 
-  controller do
+  action_item only: :index do
+    link_to 'Import Campaigns', admin_campaigns_import_path
+  end
+
+  collection_action :import_csv, method: :post do
+    begin
+      CSV.foreach(params[:file].path, headers: true) do |row|
+        
+        if row['Contratista'] == "CAM S.A.S"
+          campaign = Campaign.find_or_create_by(number: row["#Campaña"])
+          campaign.assign_attributes(
+            source: "file",
+            state: Campaign.states[:generated]
+          )
+          campaign.save
+
+          delegations_with_name = Delegation.where(name: row['Delegacion'])
+
+          if delegations_with_name.any?
+            delegation = delegations_with_name.first
+          else
+            delegation = Delegation.create(code: Delegation.last.code + 1, name: row['Delegacion'])
+          end
+
+
+          client = Client.find_or_create_by(NIC: row['Nic'])
+          client.assign_attributes(
+            unicom: row['Unicom'],
+            delegation: delegation,
+            NIS: row['NisRad'].to_i,
+            departament: row['Departamento'],
+            municipality: row['Municipio'],
+            corregimiento: row['Corregimiento'],
+            neighborhood: row['Barrio'],
+            street_type: row['Tipo Via'],
+            street_name: row['Nombre Calle'],
+            duplicator: row['Duplicador'],
+            number: row['Nro'].to_i,
+            CGV: row['Cgv'],
+            address: row['Direccion Ref.'],
+            name: row['Cliente'],
+            id_number: row['Cedula'].to_i,
+            phone: row['Telefono'],
+            rate: row['Tarifa'],
+            state: row['Estado'],
+            route: row['Ruta'].to_i,
+            reading_itinerary: row['Itin. Lectura'].to_i,
+            AOL: row['AOL Finca'].to_i,
+            measurer: row['Medidor'],
+            measurer_type: row['T. Aparato'],
+            measurer_brand: row['Marca Medidor'],
+            energy_debt: row['Deuda Energia'].to_i,
+            irregular_debt: row['Deuda Irreg.'].to_i,
+            third_party_debt: row['Deuda Terceros'].to_i,
+            financed_debt: row['Deuda Financ.'].to_i,
+            overdue_bills: row['Fact. Vencidas'].to_i,
+            agreed_bills: row['Fact. Acordadas'].to_i
+          )
+          client.save
+
+          task = Task.find_or_create_by(campaign: campaign, client: client)
+          task.assign_attributes(
+            period: row['Periodo'].to_i,
+            plan: row['Plan'],
+            validity: nil, ##
+            due_date: row['F.Entrega'],
+            campaign: campaign,
+            client: client
+          )
+          task.save
+
+          #:user
+          #:estimated_time
+        end
+      end
+      redirect_to admin_campaigns_path, notice: "CSV imported successfully!"
+    rescue StandardError => e
+      redirect_to admin_campaigns_path, alert: e.to_s
+      puts e
+    end
     
   end
 
@@ -47,77 +126,5 @@ ActiveAdmin.register Campaign do
       end
     end
     f.actions
-  end
-
-  active_admin_importable do |model, row, is_last_row, current_user|
-    begin
-
-      if row[:'contratista'] == "CAM S.A.S"
-        campaign = Campaign.create_with(
-          number: row[:"campana"],
-          source: "file",
-          state: Campaign.states[:generated]
-        ).find_or_create_by(number: row[:"campana"])
-
-        delegations_with_name = Delegation.where(name: row[:'delegacion'])
-
-        if delegations_with_name.any?
-          delegation = delegations_with_name.first
-        else
-          delegation = Delegation.create(code: Delegation.last.code + 1, name: row[:'delegacion'])
-        end
-
-        client = Client.create_with(
-          NIC: row[:'nic'].to_i,
-          unicom: row[:'unicom'],
-          delegation: delegation,
-          NIS: row[:'nisrad'].to_i,
-          departament: row[:'departamento'],
-          municipality: row[:'municipio'],
-          corregimiento: row[:'corregimiento'],
-          neighborhood: row[:'barrio'],
-          street_type: row[:'tipo_via'],
-          street_name: row[:'nombre_calle'],
-          duplicator: row[:'duplicador'],
-          number: row[:'nro'].to_i,
-          CGV: row[:'cgv'],
-          address: row[:'direccion_ref'],
-          name: row[:'cliente'],
-          id_number: row[:'cedula'].to_i,
-          phone: row[:'telefono'],
-          rate: row[:'tarifa'],
-          state: row[:'estado'],
-          route: row[:'ruta'].to_i,
-          reading_itinerary: row[:'itin_lectura'].to_i,
-          AOL: row[:'aol_finca'].to_i,
-          measurer: row[:'medidor'],
-          measurer_type: row[:'t_aparato'],
-          measurer_brand: row[:'marca_medidor'],
-          energy_debt: row[:'deuda_energia'].to_i,
-          irregular_debt: row[:'deuda_irreg'].to_i,
-          third_party_debt: row[:'deuda_terceros'].to_i,
-          financed_debt: row[:'deuda_financ'].to_i,
-          overdue_bills: row[:'fact_vencidas'].to_i,
-          agreed_bills: row[:'fact_acordadas'].to_i
-
-        ).find_or_create_by(NIC: row[:'nic'])
-
-        task = Task.create_with(
-          period: row[:'periodo'].to_i,
-          plan: row[:'plan'],
-          validity: nil, ##
-          due_date: f_entrega,
-          campaign: campaign,
-          client: client
-        ).find_or_create_by(campaign: campaign, client: client)
-
-        #:user
-        #:due_date
-        #:estimated_time
-      end
-
-    rescue StandardError => e
-      puts e
-    end
   end
 end

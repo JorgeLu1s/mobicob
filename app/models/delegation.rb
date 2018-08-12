@@ -12,4 +12,6 @@
 class Delegation < ApplicationRecord
   has_many :clients
   has_many :users
+
+  validates :code, uniqueness: true
 end

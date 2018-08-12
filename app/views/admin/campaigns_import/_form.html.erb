@@ -1,0 +1,8 @@
+<%= form_tag import_csv_admin_campaigns_path, multipart: true do %>
+  <table>
+    <tr>
+      <td><%= file_field_tag :file %></td>
+      <td><%= submit_tag "Import CSV" %></td>
+    </tr>
+  </table>
+<% end %>

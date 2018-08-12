@@ -35,7 +35,7 @@
 class Task < ApplicationRecord
   belongs_to :campaign, dependent: :destroy
   belongs_to :client, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  belongs_to :user, dependent: :destroy, required: false
 
   belongs_to :management_type, dependent: :destroy, required: false
   belongs_to :result_type, dependent: :destroy, required: false
