@@ -12,5 +12,6 @@ Rails.application.routes.draw do
 
     get '/tasks', to: 'tasks#index'
     patch '/upload_tasks', to: 'tasks#upload_tasks'
+    get '/params', to: 'params#index'
   end
 end
