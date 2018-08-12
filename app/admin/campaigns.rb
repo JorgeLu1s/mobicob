@@ -9,6 +9,7 @@ ActiveAdmin.register Campaign do
 
   collection_action :import_csv, method: :post do
     begin
+      raise 'Must attach a file' if params[:file]==nil
       CSV.foreach(params[:file].path, headers: true) do |row|
         
         if row['Contratista'] == "CAM S.A.S"
@@ -19,19 +20,16 @@ ActiveAdmin.register Campaign do
           )
           campaign.save
 
-          delegations_with_name = Delegation.where(name: row['Delegacion'])
-
-          if delegations_with_name.any?
-            delegation = delegations_with_name.first
-          else
-            delegation = Delegation.create(code: Delegation.last.code + 1, name: row['Delegacion'])
-          end
-
+          delegation = Delegation.find_or_create_by(name: row['Delegacion'])
+          delegation.assign_attributes(
+            code: row['Delegacion']
+          )
+          delegation.save
 
           client = Client.find_or_create_by(NIC: row['Nic'])
           client.assign_attributes(
             unicom: row['Unicom'],
-            delegation: delegation,
+            delegation_id: delegation.id,
             NIS: row['NisRad'].to_i,
             departament: row['Departamento'],
             municipality: row['Municipio'],
@@ -69,8 +67,8 @@ ActiveAdmin.register Campaign do
             plan: row['Plan'],
             validity: nil, ##
             due_date: row['F.Entrega'],
-            campaign: campaign,
-            client: client
+            campaign_id: campaign.id,
+            client_id: client.id
           )
           task.save
 
@@ -83,7 +81,6 @@ ActiveAdmin.register Campaign do
       redirect_to admin_campaigns_path, alert: e.to_s
       puts e
     end
-    
   end
 
   filter :number

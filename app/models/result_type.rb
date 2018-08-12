@@ -12,4 +12,7 @@
 
 class ResultType < ApplicationRecord
   has_many :tasks
+
+  validates :code, uniqueness: true
+  validates :name, uniqueness: true
 end

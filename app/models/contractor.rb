@@ -11,4 +11,7 @@
 
 class Contractor < ApplicationRecord
   has_many :users, dependent: :destroy
+
+  validates :code, uniqueness: true
+  validates :name, uniqueness: true
 end

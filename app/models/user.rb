@@ -46,4 +46,7 @@ class User < ApplicationRecord
   belongs_to :delegation
 
   has_many :tasks
+
+  validates :email, uniqueness: true
+  validates :id_number, uniqueness: true
 end

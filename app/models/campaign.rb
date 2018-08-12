@@ -13,7 +13,7 @@
 #
 
 class Campaign < ApplicationRecord
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
   validates :number, uniqueness: true
 
   enum state: { generated: "generated", active: "active", finished: "finished" }

@@ -33,13 +33,13 @@
 #
 
 class Task < ApplicationRecord
-  belongs_to :campaign, dependent: :destroy
-  belongs_to :client, dependent: :destroy
-  belongs_to :user, dependent: :destroy, required: false
+  belongs_to :campaign
+  belongs_to :client
+  belongs_to :user, required: false
 
-  belongs_to :management_type, dependent: :destroy, required: false
-  belongs_to :result_type, dependent: :destroy, required: false
-  belongs_to :anomaly_type, dependent: :destroy, required: false
+  belongs_to :management_type, required: false
+  belongs_to :result_type, required: false
+  belongs_to :anomaly_type, required: false
 
   enum validity: { daily: "daily", weekly: "weekly", monthly: "monthly" }
 
