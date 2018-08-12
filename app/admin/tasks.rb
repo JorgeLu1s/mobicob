@@ -39,7 +39,7 @@ ActiveAdmin.register Task do
       redirect_to admin_tasks_path, alert: e.to_s
       puts e
     end
-    
+
   end
 
   filter :period
@@ -63,6 +63,124 @@ ActiveAdmin.register Task do
     actions
   end
 
+  csv do
+    column("Delegacion") { |task|
+      if task.client != nil
+        task.client.delegation.code+" - "+task.client.delegation.name
+      end
+    }
+    column("Contratista") {  |task|
+      if task.user != nil && task.user.contractor != nil
+        task.user.contractor.code+" - "+task.user.contractor.name
+      end
+    }
+    column("#Campaña") { |task|
+      if task.campaign != nil
+        task.campaign.number
+      end
+    }
+    column("F.Entrega") { |task|
+      if task.due_date != nil
+        task.due_date.strftime("%d/%m/%Y")
+      end
+    }
+    column("Nic") { |task|
+      if task.client != nil
+        task.client.NIC
+      end
+    }
+    column("NisRad") { |task|
+      if task.client != nil
+        task.client.NIS
+      end
+    }
+    column("F.Gestion") { |task|
+      if task.management_date != nil
+        task.management_date.strftime("%d/%m/%Y")
+      end
+    }
+    column("T.Gestion") { |task|
+      if task.management_type != nil
+        task.management_type.name
+      end
+    }
+    column("Resultado") { |task|
+      if task.result_type != nil
+        task.result_type.name
+      end
+    }
+    column("Anomalia") { |task|
+      if task.anomaly_type != nil
+        task.anomaly_type.name
+      end
+    }
+    column("Entidad Recaudo") { |task|
+      if task.collection_entity != nil
+        task.collection_entity
+      end
+    }
+    column("F.Pago") { |task|
+      if task.payment_date != nil
+        task.payment_date.strftime("%d/%m/%Y")
+      end
+    }
+    column("F.Com.Pago") { |task|
+      if task.commitment_date != nil
+        task.commitment_date
+      end
+    }
+    column("Pers.Contacto") { |task|
+      if task.personal_contact != nil
+        task.personal_contact ? "SI" : "NO"
+      end
+    }
+    column("Cedula") { |task|
+      if task.id_number != nil
+        task.id_number
+      end
+    }
+    column("Tit.Pago") { |task|
+      if task.payment_holder != nil
+        task.payment_holder
+      end
+    }
+    column("Telefono") { |task|
+      if task.phone != nil
+        task.phone
+      end
+    }
+    column("Email") { |task|
+      if task.email != nil
+        task.email
+      end
+    }
+    column("Observaciones") { |task|
+      if task.observations != nil
+        task.observations
+      end
+    }
+    column("Lectura Firma") { |task|
+      if task.reading_signature != nil
+        task.reading_signature
+      end
+    }
+    column("Gestor Cobro") { |task|
+      if task.user != nil
+        task.user.name+" "+task.user.lastname
+      end
+    }
+    column("Hora Duracion") { |task|
+      if task.used_time != nil
+        task.used_time.strftime('%H:%M:%S')
+      end
+    }
+    column("Punto GPS") { |task|
+      if task.longitude != nil && task.latitude != nil
+        task.longitude.to_s+"/"+task.latitude.to_s
+      end
+    }
+  end
+
   show do |task|
     attributes_table do
       rows :id, :period, :plan, :validity, :campaign, :client, :created_at,
@@ -72,6 +190,13 @@ ActiveAdmin.register Task do
           '00:00'
         else
           task.estimated_time.strftime('%H:%M')
+        end
+      end
+      row :used_time do
+        if task.used_time == nil
+          '00:00'
+        else
+          task.used_time.strftime('%H:%M')
         end
       end
       rows :management_date,
@@ -110,6 +235,7 @@ ActiveAdmin.register Task do
         f.input :observations
         f.input :reading_signature
         f.input :dataphone_payment
+        f.input :used_time
         f.input :latitude
         f.input :longitude
       end
