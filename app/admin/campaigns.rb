@@ -1,5 +1,5 @@
 ActiveAdmin.register Campaign do
-  permit_params %i[id number source state init_date finish_date]
+  permit_params %i[id number source state init_date finish_date period]
 
   menu priority: 2
 
@@ -16,6 +16,7 @@ ActiveAdmin.register Campaign do
           campaign = Campaign.find_or_create_by(number: row["#Campaña"])
           campaign.assign_attributes(
             source: "file",
+            period: row['Periodo'].to_i,
             state: Campaign.states[:generated]
           )
           campaign.save
@@ -63,7 +64,6 @@ ActiveAdmin.register Campaign do
 
           task = Task.find_or_create_by(campaign: campaign, client: client)
           task.assign_attributes(
-            period: row['Periodo'].to_i,
             plan: row['Plan'],
             validity: nil, ##
             due_date: row['F.Entrega'],
@@ -83,6 +83,7 @@ ActiveAdmin.register Campaign do
     end
   end
 
+  filter :period
   filter :number
   filter :source
   filter :state
@@ -93,6 +94,7 @@ ActiveAdmin.register Campaign do
     column :number
     column :source
     column :state
+    column :period
     column :init_date
     column :finish_date
     column :created_at
@@ -101,7 +103,7 @@ ActiveAdmin.register Campaign do
 
   show do |campaign|
     attributes_table do
-      rows :id, :number, :source, :state, :init_date, :finish_date, :created_at,
+      rows :id, :number, :source, :state, :period, :init_date, :finish_date, :created_at,
       :updated_at
       row :tasks do
           campaign.tasks.map{ |task| link_to(task.id, 
@@ -116,6 +118,7 @@ ActiveAdmin.register Campaign do
       f.input :number
       f.input :state, as: :select,
         collection: Campaign.states.keys.map{ |item| [item.titleize, item] }
+      f.input :period
       f.input :init_date
       f.input :finish_date
       if f.object.new_record?

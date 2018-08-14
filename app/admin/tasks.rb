@@ -1,5 +1,5 @@
 ActiveAdmin.register Task do
-  permit_params %i[id period plan validity campaign_id client_id collection_entity
+  permit_params %i[id plan validity campaign_id client_id collection_entity
     commitment_date due_date email id_number latitude longitude management_date
     observations payment_date payment_holder personal_contact phone
     reading_signature estimated_time anomaly_type_id management_type_id
@@ -16,19 +16,47 @@ ActiveAdmin.register Task do
       raise 'Must attach a file' if params[:file]==nil
       CSV.foreach(params[:file].path, headers: true) do |row|
 
-        user = User.where(email: row["email"])
-        client = Client.where(NIC: row['Nic'])
-        campaign = Campaign.where(number: row["#Campaña"])
 
-        if user.any? && client.any? && campaign.any?
-          task = Task.new(
-            plan: row['Plan'],
-            due_date: row['F.Entrega'],
-            campaign_id: campaign.first.id,
-            client_id: client.first.id,
-            user_id: user.first.id,
-            estimated_time: row['Estimado']
-          )
+        users = User.where(email: row["email"])
+        clients = Client.where(NIC: row['Nic'])
+        campaigns = Campaign.where(number: row["#Campaña"])
+        actualizar = row["actualizar"]
+
+        if users.any? && clients.any? && campaigns.any?
+          user = users.first
+          client = clients.first
+          campaign = campaigns.first
+
+          if actualizar == "SI"
+            tasks = Task.where(client_id: client.id, campaign_id: campaign.id)
+            if tasks.any?
+              task = tasks.first
+              task.assign_attributes({
+                plan: row['Plan'],
+                due_date: row['F.Entrega'],
+                user_id: user.id,
+                estimated_time: row['Estimado']
+              })
+            else
+              task = Task.new(
+                plan: row['Plan'],
+                due_date: row['F.Entrega'],
+                campaign_id: campaign.id,
+                client_id: client.id,
+                user_id: user.id,
+                estimated_time: row['Estimado']
+              )
+            end
+          else
+            task = Task.new(
+              plan: row['Plan'],
+              due_date: row['F.Entrega'],
+              campaign_id: campaign.id,
+              client_id: client.id,
+              user_id: user.id,
+              estimated_time: row['Estimado']
+            )
+          end
           task.save
         else
           raise '#Campaña, email and Nic are required and must be in the system'
@@ -42,7 +70,6 @@ ActiveAdmin.register Task do
 
   end
 
-  filter :period
   filter :campaign
   filter :client
   filter :user
@@ -53,7 +80,6 @@ ActiveAdmin.register Task do
   index do
     selectable_column
     id_column
-    column :period
     column :campaign
     column :client
     column :user
@@ -111,7 +137,7 @@ ActiveAdmin.register Task do
     }
     column("Anomalia") { |task|
       if task.anomaly_type != nil
-        task.anomaly_type.name
+        task.anomaly_type.code
       end
     }
     column("Entidad Recaudo") { |task|
@@ -183,7 +209,7 @@ ActiveAdmin.register Task do
 
   show do |task|
     attributes_table do
-      rows :id, :period, :plan, :validity, :campaign, :client, :created_at,
+      rows :id, :plan, :validity, :campaign, :client, :created_at,
       :updated_at, :user, :due_date
       row :estimated_time do
         if task.estimated_time == nil
@@ -210,7 +236,6 @@ ActiveAdmin.register Task do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs do
-      f.input :period
       f.input :plan
       f.input :validity, as: :select,
         collection: Task.validities.keys.map{ |item| [item.titleize, item] }
