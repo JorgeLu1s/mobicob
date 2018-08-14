@@ -16,7 +16,6 @@
 #  observations       :string
 #  payment_date       :date
 #  payment_holder     :string
-#  period             :integer
 #  personal_contact   :boolean
 #  phone              :string
 #  plan               :string

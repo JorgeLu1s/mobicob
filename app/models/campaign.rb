@@ -6,6 +6,7 @@
 #  finish_date :date
 #  init_date   :date
 #  number      :integer
+#  period      :integer
 #  source      :string
 #  state       :string
 #  created_at  :datetime         not null
