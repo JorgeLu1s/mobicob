@@ -16,19 +16,47 @@ ActiveAdmin.register Task do
       raise 'Must attach a file' if params[:file]==nil
       CSV.foreach(params[:file].path, headers: true) do |row|
 
-        user = User.where(email: row["email"])
-        client = Client.where(NIC: row['Nic'])
-        campaign = Campaign.where(number: row["#Campaña"])
 
-        if user.any? && client.any? && campaign.any?
-          task = Task.new(
-            plan: row['Plan'],
-            due_date: row['F.Entrega'],
-            campaign_id: campaign.first.id,
-            client_id: client.first.id,
-            user_id: user.first.id,
-            estimated_time: row['Estimado']
-          )
+        users = User.where(email: row["email"])
+        clients = Client.where(NIC: row['Nic'])
+        campaigns = Campaign.where(number: row["#Campaña"])
+        actualizar = row["actualizar"]
+
+        if users.any? && clients.any? && campaigns.any?
+          user = users.first
+          client = clients.first
+          campaign = campaigns.first
+
+          if actualizar == "SI"
+            tasks = Task.where(client_id: client.id, campaign_id: campaign.id)
+            if tasks.any?
+              task = tasks.first
+              task.assign_attributes({
+                plan: row['Plan'],
+                due_date: row['F.Entrega'],
+                user_id: user.id,
+                estimated_time: row['Estimado']
+              })
+            else
+              task = Task.new(
+                plan: row['Plan'],
+                due_date: row['F.Entrega'],
+                campaign_id: campaign.id,
+                client_id: client.id,
+                user_id: user.id,
+                estimated_time: row['Estimado']
+              )
+            end
+          else
+            task = Task.new(
+              plan: row['Plan'],
+              due_date: row['F.Entrega'],
+              campaign_id: campaign.id,
+              client_id: client.id,
+              user_id: user.id,
+              estimated_time: row['Estimado']
+            )
+          end
           task.save
         else
           raise '#Campaña, email and Nic are required and must be in the system'
@@ -111,7 +139,7 @@ ActiveAdmin.register Task do
     }
     column("Anomalia") { |task|
       if task.anomaly_type != nil
-        task.anomaly_type.name
+        task.anomaly_type.code
       end
     }
     column("Entidad Recaudo") { |task|
