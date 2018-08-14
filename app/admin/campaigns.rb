@@ -1,7 +1,7 @@
 ActiveAdmin.register Campaign do
   permit_params %i[id number source state init_date finish_date period]
 
-  menu priority: 2
+  menu priority: 1
 
   action_item only: :index do
     link_to 'Import Campaigns', admin_campaigns_import_path

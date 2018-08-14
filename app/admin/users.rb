@@ -3,7 +3,7 @@ ActiveAdmin.register User do
   permit_params %i[id email password password_confirmation id_number name
     lastname position delegation_id contractor_id role_id phone address email active]
 
-  menu priority: 1
+  menu priority: 2
 
   controller do
     def action_methods
