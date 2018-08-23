@@ -1,7 +1,6 @@
 json.data do
   json.tasks @tasks do |task|
     json.id task.id
-    json.period task.period
     json.plan task.plan
     json.validity task.validity
     json.campaign task.campaign
