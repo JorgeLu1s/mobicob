@@ -1,5 +1,5 @@
 ActiveAdmin.register ResultType do
-  permit_params %i[id code name description]
+  permit_params %i[id code name description management_type_id]
 
   menu priority: 9
 
@@ -9,19 +9,21 @@ ActiveAdmin.register ResultType do
 
   filter :code
   filter :name
+  filter :management_type
 
   index do
     selectable_column
     id_column
     column :code
     column :name
+    column :management_type
     column :created_at
     actions
   end
 
   show do |result_type|
     attributes_table do
-      rows :id, :code, :name, :description, :created_at, :updated_at
+      rows :id, :code, :name, :description, :management_type, :created_at, :updated_at
       row :tasks do
           result_type.tasks.map{ |task| link_to(task.id, admin_task_path(task)) }.join(", ").html_safe
       end
@@ -34,6 +36,7 @@ ActiveAdmin.register ResultType do
       f.input :code
       f.input :name
       f.input :description
+      f.input :management_type
     end
     f.actions
   end

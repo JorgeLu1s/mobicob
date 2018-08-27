@@ -12,6 +12,7 @@
 
 class ManagementType < ApplicationRecord
   has_many :tasks
+  has_many :result_types
 
   validates :code, uniqueness: true
   validates :name, uniqueness: true
