@@ -4,7 +4,14 @@ permit_params %i[id code name]
   menu priority: 7
 
   controller do
-    
+    def action_methods
+      if current_user != nil &&
+        (current_user.role.code == '4' || current_user.role.code == '3')
+        ['index', 'show']
+      else
+        super
+      end
+    end
   end
 
   filter :code

@@ -7,7 +7,12 @@ ActiveAdmin.register User do
 
   controller do
     def action_methods
-      super - ['destroy']
+      if current_user != nil && (current_user.role.code == '4' ||
+        current_user.role.code == '3' || current_user.role.code == '2')
+        ['index', 'show']
+      else
+        super - ['destroy']
+      end
     end
   end
 

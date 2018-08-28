@@ -78,6 +78,27 @@ ActiveAdmin.register Task do
   filter :anomaly_type_id
   filter :management_date_null, :as => :boolean 
 
+  controller do
+    def scoped_collection
+      super.includes(:roles)
+      if current_user != nil &&
+        (current_user.role.code == '4' || current_user.role.code == '3')
+        return current_user.tasks
+      else
+        return Task.all
+      end
+    end
+
+    def action_methods
+      if current_user != nil &&
+        (current_user.role.code == '4' || current_user.role.code == '3')
+        ['index', 'show', 'edit', 'update']
+      else
+        super
+      end
+    end
+  end
+
   index do
     selectable_column
     id_column

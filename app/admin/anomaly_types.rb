@@ -4,7 +4,14 @@ ActiveAdmin.register AnomalyType do
   menu priority: 10
 
   controller do
-    
+    def action_methods
+      if current_user != nil &&
+        (current_user.role.code == '4' || current_user.role.code == '3')
+        ['index', 'show']
+      else
+        super
+      end
+    end
   end
 
   filter :code

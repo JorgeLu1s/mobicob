@@ -7,6 +7,17 @@ ActiveAdmin.register Campaign do
     link_to 'Import Campaigns', admin_campaigns_import_path
   end
 
+  controller do
+    def action_methods
+      if current_user != nil &&
+        (current_user.role.code == '4' || current_user.role.code == '3')
+        ['index', 'show']
+      else
+        super
+      end
+    end
+  end
+
   collection_action :import_csv, method: :post do
     begin
       raise 'Must attach a file' if params[:file]==nil
