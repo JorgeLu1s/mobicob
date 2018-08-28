@@ -76,16 +76,114 @@ ActiveAdmin.register Task do
   filter :result_type
   filter :management_type_id
   filter :anomaly_type_id
+  filter :management_date_null, :as => :boolean 
 
   index do
     selectable_column
     id_column
     column :campaign
-    column :client
-    column :user
     column :due_date
-    column :created_at
-    column :management_date
+    column 'Unicom' do |item|
+      item.client.unicom
+    end
+    column 'NIC' do |item|
+      item.client.NIC
+    end
+    column 'NIS' do |item|
+      item.client.NIS
+    end
+    column 'Departament' do |item|
+      item.client.departament
+    end
+    column 'Municipality' do |item|
+      item.client.municipality
+    end
+    column 'Corregimiento' do |item|
+      item.client.corregimiento
+    end
+    column 'Neighborhood' do |item|
+      item.client.neighborhood
+    end
+    column 'Street_type' do |item|
+      item.client.street_type
+    end
+    column 'Street_name' do |item|
+      item.client.street_name
+    end
+    column 'Duplicator' do |item|
+      item.client.duplicator
+    end
+    column 'Number' do |item|
+      item.client.number
+    end
+    column 'CGV' do |item|
+      item.client.CGV
+    end
+    column 'Address' do |item|
+      item.client.address
+    end
+    column 'Client' do |item|
+      item.client.name
+    end
+    column 'Id_number' do |item|
+      item.client.id_number
+    end
+    column 'Phone' do |item|
+      item.client.phone
+    end
+    column 'Rate' do |item|
+      item.client.rate
+    end
+    column 'State' do |item|
+      item.client.state
+    end
+    column 'Route' do |item|
+      item.client.route
+    end
+    column 'Reading_itinerary' do |item|
+      item.client.reading_itinerary
+    end
+    column 'AOL' do |item|
+      item.client.AOL
+    end
+    column 'Measurer' do |item|
+      item.client.measurer
+    end
+    column 'Measurer_type' do |item|
+      item.client.measurer_type
+    end
+    column 'Measurer_brand' do |item|
+      item.client.measurer_brand
+    end
+    column 'Energy_debt' do |item|
+      item.client.energy_debt
+    end
+    column 'Irregular_debt' do |item|
+      item.client.irregular_debt
+    end
+    column 'Third_party_debt' do |item|
+      item.client.third_party_debt
+    end
+    column 'Financed_debt' do |item|
+      item.client.financed_debt
+    end
+    column 'Overdue_bills' do |item|
+      item.client.overdue_bills
+    end
+    column 'Agreed_bills' do |item|
+      item.client.agreed_bills
+    end
+    column :dataphone_payment
+    column 'Period' do |item|
+      item.campaign.period
+    end
+    column :plan
+    column 'Contractor' do |item|
+      item.user ? item.user.contractor.name : ''
+    end
+    column 'Delegation' do |item|
+      item.client.delegation.name
+    end
     actions
   end
 
@@ -209,8 +307,7 @@ ActiveAdmin.register Task do
 
   show do |task|
     attributes_table do
-      rows :id, :plan, :validity, :campaign, :client, :created_at,
-      :updated_at, :user, :due_date
+      rows :id, :created_at, :updated_at, :user, :due_date
       row :estimated_time do
         if task.estimated_time == nil
           '00:00'
@@ -218,6 +315,111 @@ ActiveAdmin.register Task do
           task.estimated_time.strftime('%H:%M')
         end
       end
+
+      row :campaign
+      row :due_date
+      row 'Unicom' do
+        task.client.unicom
+      end
+      row 'NIC' do
+        task.client.NIC
+      end
+      row 'NIS' do
+        task.client.NIS
+      end
+      row 'Departament' do
+        task.client.departament
+      end
+      row 'Municipality' do
+        task.client.municipality
+      end
+      row 'Corregimiento' do
+        task.client.corregimiento
+      end
+      row 'Neighborhood' do
+        task.client.neighborhood
+      end
+      row 'Street_type' do
+        task.client.street_type
+      end
+      row 'Street_name' do
+        task.client.street_name
+      end
+      row 'Duplicator' do
+        task.client.duplicator
+      end
+      row 'Number' do
+        task.client.number
+      end
+      row 'CGV' do
+        task.client.CGV
+      end
+      row 'Address' do
+        task.client.address
+      end
+      row 'Client' do
+        task.client.name
+      end
+      row 'Id_number' do
+        task.client.id_number
+      end
+      row 'Phone' do
+        task.client.phone
+      end
+      row 'Rate' do
+        task.client.rate
+      end
+      row 'State' do
+        task.client.state
+      end
+      row 'Route' do
+        task.client.route
+      end
+      row 'Reading_itinerary' do
+        task.client.reading_itinerary
+      end
+      row 'AOL' do
+        task.client.AOL
+      end
+      row 'Measurer' do
+        task.client.measurer
+      end
+      row 'Measurer_type' do
+        task.client.measurer_type
+      end
+      row 'Measurer_brand' do
+        task.client.measurer_brand
+      end
+      row 'Energy_debt' do
+        task.client.energy_debt
+      end
+      row 'Irregular_debt' do
+        task.client.irregular_debt
+      end
+      row 'Third_party_debt' do
+        task.client.third_party_debt
+      end
+      row 'Financed_debt' do
+        task.client.financed_debt
+      end
+      row 'Overdue_bills' do
+        task.client.overdue_bills
+      end
+      row 'Agreed_bills' do
+        task.client.agreed_bills
+      end
+      row :dataphone_payment
+      row 'Period' do
+        task.campaign.period
+      end
+      row :plan
+      row 'Contractor' do
+        task.user ? task.user.contractor.name : ''
+      end
+      row 'Delegation' do
+        task.client.delegation.name
+      end
+
       row :used_time do
         if task.used_time == nil
           '00:00'
@@ -225,12 +427,13 @@ ActiveAdmin.register Task do
           task.used_time.strftime('%H:%M')
         end
       end
+
       rows :management_date,
         :management_type, :result_type, :anomaly_type, :collection_entity,
         :payment_date, :commitment_date, :personal_contact, :id_number,
         :payment_holder, :phone, :email, :observations, :reading_signature,
         :dataphone_payment, :latitude, :longitude
-    end
+      end
   end
 
   form do |f|
