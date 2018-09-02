@@ -5,6 +5,12 @@ ActiveAdmin.register User do
 
   menu priority: 2
 
+  filter :delegation
+  filter :contractor
+  filter :role
+  filter :position
+  filter :active
+
   controller do
     def action_methods
       if current_user != nil && (current_user.role.code == '4' ||
@@ -15,12 +21,6 @@ ActiveAdmin.register User do
       end
     end
   end
-
-  filter :delegation
-  filter :contractor
-  filter :role
-  filter :position
-  filter :active
 
   index do
     selectable_column

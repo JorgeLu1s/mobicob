@@ -3,6 +3,9 @@ permit_params %i[id code name]
 
   menu priority: 7
 
+  filter :code
+  filter :name
+
   controller do
     def action_methods
       if current_user != nil &&
@@ -13,9 +16,6 @@ permit_params %i[id code name]
       end
     end
   end
-
-  filter :code
-  filter :name
 
   index do
     selectable_column

@@ -3,6 +3,10 @@ ActiveAdmin.register ResultType do
 
   menu priority: 9
 
+  filter :code
+  filter :name
+  filter :management_type
+
   controller do
     def action_methods
       if current_user != nil &&
@@ -13,10 +17,6 @@ ActiveAdmin.register ResultType do
       end
     end
   end
-
-  filter :code
-  filter :name
-  filter :management_type
 
   index do
     selectable_column

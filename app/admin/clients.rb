@@ -9,23 +9,18 @@ ActiveAdmin.register Client do
 
   menu false
 
-  controller do
-    def action_methods
-      if current_user != nil &&
-        (current_user.role.code == '4' || current_user.role.code == '3')
-        ['index', 'show']
-      else
-        super
-      end
-    end
-  end
-
   filter :NIC
   filter :state
   filter :delegation
   filter :departament
   filter :municipality
   filter :neighborhood
+
+  controller do
+    def action_methods
+      ['index', 'show']
+    end
+  end
 
   index do
     selectable_column

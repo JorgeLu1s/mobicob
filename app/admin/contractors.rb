@@ -4,6 +4,9 @@ ActiveAdmin.register Contractor do
 
   menu priority: 6
 
+  filter :code
+  filter :name
+
   controller do
     def action_methods
       if current_user != nil &&
@@ -14,9 +17,6 @@ ActiveAdmin.register Contractor do
       end
     end
   end
-
-  filter :code
-  filter :name
 
   index do
     selectable_column
