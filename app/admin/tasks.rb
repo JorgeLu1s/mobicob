@@ -157,7 +157,7 @@ ActiveAdmin.register Task do
     end
     column :plan
     column 'Contractor' do |item|
-      item.user ? item.user.contractor.name : ''
+      item.user && item.user.contractor ? item.user.contractor.name : ''
     end
     column 'Delegation' do |item|
       item.client.delegation.name
@@ -274,7 +274,7 @@ ActiveAdmin.register Task do
       end
       row :plan
       row 'Contractor' do
-        task.user ? task.user.contractor.name : ''
+        task.user && task.user.contractor ? task.user.contractor.name : ''
       end
       row 'Delegation' do
         task.client.delegation.name

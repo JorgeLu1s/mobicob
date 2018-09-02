@@ -77,7 +77,7 @@ ActiveAdmin.register Campaign do
       raise 'Must attach a file' if params[:file]==nil
       CSV.foreach(params[:file].path, headers: true, col_sep: '|') do |row|
 
-        if row['Contratista'] == "CAM S.A.S"
+        if row['Contratista'] == Contractor::DEFAULT_CONTRACTOR_NAME
           campaign = Campaign.find_or_create_by(number: row["#Campaña"])
           campaign.assign_attributes(
             source: "file",

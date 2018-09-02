@@ -2,27 +2,14 @@ ActiveAdmin.register Contractor do
 
   permit_params %i[id code name]
 
-  menu priority: 6
+  menu false
 
   filter :code
   filter :name
 
   controller do
-    helper_method :allowed_roles
-
-    def allowed_roles
-      allowed_roles = Role.basic_roles.dup
-      allowed_roles.delete(:web)
-      allowed_roles.delete(:mobile)
-      return allowed_roles
-    end
-
     def action_methods
-      if current_user != nil && allowed_roles.values.include?(current_user.role.code)
-        super
-      else
-        ['index', 'show']
-      end
+      ['index', 'show']
     end
   end
 

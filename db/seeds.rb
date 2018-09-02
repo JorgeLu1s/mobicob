@@ -5,13 +5,33 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-delegation = Delegation.where(code: "1068", name: "Atl. Nte").first_or_create
-contractor = Contractor.where(code: "0", name: "Contratista Generico").first_or_create
-role = Role.where(code: Role.basic_roles[:admin], name: "Administrador").first_or_create
-user = User.where(email: 'admin@example.com', password: 'password',
-  role: role, contractor: contractor,
-  delegation: delegation).first_or_create #if Rails.env.development?
+delegation = Delegation.where(code: "1063").first_or_create!
+delegation.name = "10 Sucre"
+delegation.save
 
-Role.where(code: Role.basic_roles[:back], name: "Back Office").first_or_create
-Role.where(code: Role.basic_roles[:web], name: "Gestor Web").first_or_create
-Role.where(code: Role.basic_roles[:mobile], name: "Gestor Móvil").first_or_create
+contractor = Contractor.where(name: Contractor::DEFAULT_CONTRACTOR_NAME).first_or_create!
+contractor.code = Contractor::DEFAULT_CONTRACTOR_CODE
+contractor.save
+
+role = Role.where(code: Role.basic_roles[:admin]).first_or_create!
+role.name = "Administrador"
+role.save
+
+user = User.where(email: 'admin@example.com').first_or_create!
+user.password = 'password'
+user.role = role
+user.contractor = contractor
+user.delegation = delegation
+user.save
+
+back = Role.where(code: Role.basic_roles[:back]).first_or_create!
+back.name = "Back Office"
+back.save
+
+web = Role.where(code: Role.basic_roles[:web]).first_or_create!
+web.name = "Gestor Web"
+web.save
+
+mobile = Role.where(code: Role.basic_roles[:mobile]).first_or_create!
+mobile.name = "Gestor Móvil"
+mobile.save

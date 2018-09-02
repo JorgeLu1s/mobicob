@@ -14,4 +14,7 @@ class Contractor < ApplicationRecord
 
   validates :code, uniqueness: true
   validates :name, uniqueness: true
+
+  DEFAULT_CONTRACTOR_CODE = "001"
+  DEFAULT_CONTRACTOR_NAME = "ASESORIA Y LOGISTICA S.A.S"
 end
