@@ -1,12 +1,20 @@
 module V1
   class TasksController < ApiController
     def index
-      @tasks = current_user.tasks
+      @tasks = current_user.tasks.where(management_date: nil)
     end
 
     def upload_tasks
       params[:tasks].each do |task|
-        Task.find(task[:id]).update(task_params(task))
+        db_task = Task.find(task[:id])
+
+        if db_task.user_id == current_user.id
+          db_task.assign_attributes(task_params(task))
+        else
+          db_task.assign_attributes(task_params(task))
+          db_task = db_task.dup
+        end
+        db_task.save
       end
 
       render status: :ok
