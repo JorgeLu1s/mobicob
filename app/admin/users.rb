@@ -12,12 +12,21 @@ ActiveAdmin.register User do
   filter :active
 
   controller do
+    helper_method :allowed_roles
+
+    def allowed_roles
+      allowed_roles = Role.basic_roles.dup
+      allowed_roles.delete(:back)
+      allowed_roles.delete(:web)
+      allowed_roles.delete(:mobile)
+      return allowed_roles
+    end
+
     def action_methods
-      if current_user != nil && (current_user.role.code == '4' ||
-        current_user.role.code == '3' || current_user.role.code == '2')
-        ['index', 'show']
-      else
+      if current_user != nil && allowed_roles.values.include?(current_user.role.code)
         super - ['destroy']
+      else
+        ['index', 'show']
       end
     end
   end

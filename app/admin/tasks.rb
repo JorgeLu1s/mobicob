@@ -7,7 +7,8 @@ ActiveAdmin.register Task do
 
   menu priority: 3
 
-  action_item only: :index do
+  action_item only: :index,
+  if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
     link_to 'Import Tasks', admin_tasks_import_path
   end
 
@@ -21,23 +22,37 @@ ActiveAdmin.register Task do
   filter :management_date_null, :as => :boolean
 
   controller do
+    helper_method :allowed_roles, :assignable_users
+
+    def allowed_roles
+      allowed_roles = Role.basic_roles.dup
+      allowed_roles.delete(:web)
+      allowed_roles.delete(:mobile)
+      return allowed_roles
+    end
+
     def scoped_collection
       super.includes(:roles)
-      if current_user != nil &&
-        (current_user.role.code == '4' || current_user.role.code == '3')
-        return current_user.tasks
-      else
+      if current_user != nil && allowed_roles.values.include?(current_user.role.code)
         return Task.all
+      else
+        return current_user.tasks
       end
     end
 
     def action_methods
-      if current_user != nil &&
-        (current_user.role.code == '4' || current_user.role.code == '3')
-        ['index', 'show', 'edit', 'update']
-      else
+      if current_user != nil && allowed_roles.values.include?(current_user.role.code)
         super
+      else
+        ['index', 'show', 'edit', 'update']
       end
+    end
+
+    def assignable_users
+      assignable_roles = Role.basic_roles.dup
+      assignable_roles.delete(:admin)
+      assignable_roles.delete(:back)
+      User.where(active: true, role_id: assignable_roles.values)
     end
   end
 
@@ -289,7 +304,7 @@ ActiveAdmin.register Task do
         collection: Task.validities.keys.map{ |item| [item.titleize, item] }
       f.input :campaign
       f.input :client
-      f.input :user
+      f.input :user, as: :select, collection: assignable_users
       f.input :due_date
       f.input :estimated_time
       unless f.object.new_record?
