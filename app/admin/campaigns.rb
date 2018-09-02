@@ -21,7 +21,7 @@ ActiveAdmin.register Campaign do
   collection_action :import_csv, method: :post do
     begin
       raise 'Must attach a file' if params[:file]==nil
-      CSV.foreach(params[:file].path, headers: true) do |row|
+      CSV.foreach(params[:file].path, headers: true, col_sep: '|') do |row|
         
         if row['Contratista'] == "CAM S.A.S"
           campaign = Campaign.find_or_create_by(number: row["#Campaña"])

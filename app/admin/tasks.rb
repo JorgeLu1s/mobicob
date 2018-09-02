@@ -14,7 +14,7 @@ ActiveAdmin.register Task do
   collection_action :import_csv, method: :post do
     begin
       raise 'Must attach a file' if params[:file]==nil
-      CSV.foreach(params[:file].path, headers: true) do |row|
+      CSV.foreach(params[:file].path, headers: true, col_sep: '|') do |row|
 
 
         users = User.where(email: row["email"])
@@ -208,7 +208,7 @@ ActiveAdmin.register Task do
     actions
   end
 
-  csv do
+  csv col_sep: '|' do
     column("Delegacion") { |task|
       if task.client != nil
         task.client.delegation.code+" - "+task.client.delegation.name
