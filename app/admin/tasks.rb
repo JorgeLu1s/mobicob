@@ -12,6 +12,11 @@ ActiveAdmin.register Task do
     link_to 'Import Tasks', admin_tasks_import_path
   end
 
+  action_item only: :index,
+  if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
+    link_to 'Import Result Tasks', admin_task_results_import_path
+  end
+
   filter :campaign
   filter :client
   filter :user
@@ -379,6 +384,62 @@ ActiveAdmin.register Task do
           task.save
         else
           raise '#Campaña, email and Nic are required and must be in the system'
+        end
+      end
+      redirect_to admin_tasks_path, notice: "CSV imported successfully!"
+    rescue StandardError => e
+      redirect_to admin_tasks_path, alert: e.to_s
+      puts e
+    end
+  end
+
+  collection_action :import_csv_results, method: :post do
+    begin
+      raise 'Must attach a file' if params[:file]==nil
+      CSV.foreach(params[:file].path, headers: true, col_sep: '|') do |row|
+
+        task = Task.find(row["Tarea"])
+        users = User.where(email: row["Gestor Cobro"])
+        management_types = ManagementType.where(name: row["T.Gestion"])
+        result_types = ResultType.where(name: row["Resultado"])
+        anomaly_types = AnomalyType.where(name: row["Anomalia"])
+
+        if task != nil && users.any? && management_types.any? && result_types.any? && anomaly_types.any?
+
+          user = users.first
+          management_type = management_types.first
+          result_type = result_types.first
+          anomaly_type = anomaly_types.first
+
+          if task.user != user
+            task = task.dup
+          end
+
+          task.assign_attributes({
+            management_date: row['F.Gestion'],
+            management_type_id: management_type.id,
+            result_type_id: result_type.id,
+            anomaly_type_id: anomaly_type.id,
+
+            collection_entity: row['Entidad Recaudo'],
+            payment_date: row['F.Pago'],
+            commitment_date: row['F.Com.Pago'],
+            personal_contact: row['Pers.Contacto'],
+            id_number: row['Cedula'],
+            payment_holder: row['Tit.Pago'],
+            phone: row['Telefono'],
+            email: row['Email'],
+            observations: row['Observaciones'],
+            reading_signature: row['Lectura Firma'],
+
+            user_id: user.id,
+            used_time: row['Hora Duracion'],
+            latitude: row['Punto GPS'].split('/')[0],
+            longitude: row['Punto GPS'].split('/')[1]
+          })
+          task.save
+        else
+          raise 'Tarea, Gestor, T.Gestion, Resultado and Anomalia are required and must be in the system'
         end
       end
       redirect_to admin_tasks_path, notice: "CSV imported successfully!"
