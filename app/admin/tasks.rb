@@ -9,12 +9,12 @@ ActiveAdmin.register Task do
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Import Tasks', admin_tasks_import_path
+    link_to 'Importar Tareas', admin_tasks_import_path
   end
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Import Result Tasks', admin_task_results_import_path
+    link_to 'Importar Resultado Tareas', admin_task_results_import_path
   end
 
   filter :campaign
@@ -66,105 +66,105 @@ ActiveAdmin.register Task do
     id_column
     column :campaign
     column :due_date
-    column 'Unicom' do |item|
+    column :unicom do |item|
       item.client.unicom
     end
-    column 'NIC' do |item|
+    column :NIC do |item|
       item.client.NIC
     end
-    column 'NIS' do |item|
+    column :NIS do |item|
       item.client.NIS
     end
-    column 'Departament' do |item|
+    column :departament do |item|
       item.client.departament
     end
-    column 'Municipality' do |item|
+    column :municipality do |item|
       item.client.municipality
     end
-    column 'Corregimiento' do |item|
+    column :corregimiento do |item|
       item.client.corregimiento
     end
-    column 'Neighborhood' do |item|
+    column :neighborhood do |item|
       item.client.neighborhood
     end
-    column 'Street_type' do |item|
+    column :street_type do |item|
       item.client.street_type
     end
-    column 'Street_name' do |item|
+    column :street_name do |item|
       item.client.street_name
     end
-    column 'Duplicator' do |item|
+    column :duplicator do |item|
       item.client.duplicator
     end
-    column 'Number' do |item|
+    column :number do |item|
       item.client.number
     end
-    column 'CGV' do |item|
+    column :CGV do |item|
       item.client.CGV
     end
-    column 'Address' do |item|
+    column :address do |item|
       item.client.address
     end
-    column 'Client' do |item|
+    column :name do |item|
       item.client.name
     end
-    column 'Id_number' do |item|
+    column :id_number do |item|
       item.client.id_number
     end
-    column 'Phone' do |item|
+    column :phone do |item|
       item.client.phone
     end
-    column 'Rate' do |item|
+    column :rate do |item|
       item.client.rate
     end
-    column 'State' do |item|
+    column :state do |item|
       item.client.state
     end
-    column 'Route' do |item|
+    column :route do |item|
       item.client.route
     end
-    column 'Reading_itinerary' do |item|
+    column :reading_itinerary do |item|
       item.client.reading_itinerary
     end
-    column 'AOL' do |item|
+    column :AOL do |item|
       item.client.AOL
     end
-    column 'Measurer' do |item|
+    column :measurer do |item|
       item.client.measurer
     end
-    column 'Measurer_type' do |item|
+    column :measurer_type do |item|
       item.client.measurer_type
     end
-    column 'Measurer_brand' do |item|
+    column :measurer_brand do |item|
       item.client.measurer_brand
     end
-    column 'Energy_debt' do |item|
+    column :energy_debt do |item|
       item.client.energy_debt
     end
-    column 'Irregular_debt' do |item|
+    column :irregular_debt do |item|
       item.client.irregular_debt
     end
-    column 'Third_party_debt' do |item|
+    column :third_party_debt do |item|
       item.client.third_party_debt
     end
-    column 'Financed_debt' do |item|
+    column :financed_debt do |item|
       item.client.financed_debt
     end
-    column 'Overdue_bills' do |item|
+    column :overdue_bills do |item|
       item.client.overdue_bills
     end
-    column 'Agreed_bills' do |item|
+    column :agreed_bills do |item|
       item.client.agreed_bills
     end
     column :dataphone_payment
-    column 'Period' do |item|
+    column :period do |item|
       item.campaign.period
     end
     column :plan
-    column 'Contractor' do |item|
+    column :contractor do |item|
       item.user && item.user.contractor ? item.user.contractor.name : ''
     end
-    column 'Delegation' do |item|
+    column :delegation do |item|
       item.client.delegation.name
     end
     actions
@@ -183,105 +183,105 @@ ActiveAdmin.register Task do
 
       row :campaign
       row :due_date
-      row 'Unicom' do
+      row :unicom do
         task.client.unicom
       end
-      row 'NIC' do
+      row :NIC do
         task.client.NIC
       end
-      row 'NIS' do
+      row :NIS do
         task.client.NIS
       end
-      row 'Departament' do
+      row :departament do
         task.client.departament
       end
-      row 'Municipality' do
+      row :municipality do
         task.client.municipality
       end
-      row 'Corregimiento' do
+      row :corregimiento do
         task.client.corregimiento
       end
-      row 'Neighborhood' do
+      row :neighborhood do
         task.client.neighborhood
       end
-      row 'Street_type' do
+      row :street_type do
         task.client.street_type
       end
-      row 'Street_name' do
+      row :street_name do
         task.client.street_name
       end
-      row 'Duplicator' do
+      row :duplicator do
         task.client.duplicator
       end
-      row 'Number' do
+      row :number do
         task.client.number
       end
-      row 'CGV' do
+      row :CGV do
         task.client.CGV
       end
-      row 'Address' do
+      row :address do
         task.client.address
       end
-      row 'Client' do
+      row :client do
         task.client.name
       end
-      row 'Id_number' do
+      row :id_number do
         task.client.id_number
       end
-      row 'Phone' do
+      row :phone do
         task.client.phone
       end
-      row 'Rate' do
+      row :rate do
         task.client.rate
       end
-      row 'State' do
+      row :state do
         task.client.state
       end
-      row 'Route' do
+      row :route do
         task.client.route
       end
-      row 'Reading_itinerary' do
+      row :reading_itinerary do
         task.client.reading_itinerary
       end
-      row 'AOL' do
+      row :AOL do
         task.client.AOL
       end
-      row 'Measurer' do
+      row :measurer do
         task.client.measurer
       end
-      row 'Measurer_type' do
+      row :measurer_type do
         task.client.measurer_type
       end
-      row 'Measurer_brand' do
+      row :measurer_brand do
         task.client.measurer_brand
       end
-      row 'Energy_debt' do
+      row :energy_debt do
         task.client.energy_debt
       end
-      row 'Irregular_debt' do
+      row :irregular_debt do
         task.client.irregular_debt
       end
-      row 'Third_party_debt' do
+      row :third_party_debt do
         task.client.third_party_debt
       end
-      row 'Financed_debt' do
+      row :financed_debt do
         task.client.financed_debt
       end
-      row 'Overdue_bills' do
+      row :overdue_bills do
         task.client.overdue_bills
       end
-      row 'Agreed_bills' do
+      row :agreed_bills do
         task.client.agreed_bills
       end
       row :dataphone_payment
-      row 'Period' do
+      row :period do
         task.campaign.period
       end
       row :plan
-      row 'Contractor' do
+      row :contractor do
         task.user && task.user.contractor ? task.user.contractor.name : ''
       end
-      row 'Delegation' do
+      row :delegation do
         task.client.delegation.name
       end
 

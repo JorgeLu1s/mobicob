@@ -5,7 +5,7 @@ ActiveAdmin.register Campaign do
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Import Campaigns', admin_campaigns_import_path
+    link_to 'Importar Campañas', admin_campaigns_import_path
   end
 
   filter :period

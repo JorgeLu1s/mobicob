@@ -91,6 +91,8 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.6.4)
+      devise (>= 4.4)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -248,6 +250,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   devise (~> 4.4, >= 4.4.3)
+  devise-i18n (~> 1.6, >= 1.6.4)
   font-awesome-sass (~> 5.2.0)
   jbuilder (~> 2.5)
   jwt

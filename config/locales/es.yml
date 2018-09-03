@@ -1,0 +1,388 @@
+es:
+  date:
+    abbr_day_names:
+    - Dom
+    - Lun
+    - Mar
+    - Mié
+    - Jue
+    - Vie
+    - Sáb
+    abbr_month_names:
+    -
+    - Ene
+    - Feb
+    - Mar
+    - Abr
+    - May
+    - Jun
+    - Jul
+    - Ago
+    - Sep
+    - Oct
+    - Nov
+    - Dic
+    day_names:
+    - Domingo
+    - Lunes
+    - Martes
+    - Miércoles
+    - Jueves
+    - Viernes
+    - Sábado
+    month_names:
+    -
+    - Enero
+    - Debrero
+    - Marzo
+    - Abril
+    - Mayo
+    - Junio
+    - Julio
+    - Agosto
+    - Septiembre
+    - Octubre
+    - Noviembre
+    - Diciembre
+    formats:
+      default: "%d/%m/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+    order:
+    - :day
+    - :month
+    - :year
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  activerecord:
+    errors:
+        models:
+          user:
+            attributes:
+              email:
+                blank: "Debe ingresar un correo electrónico"
+    models:
+      campaign:
+        one: "Campaña"
+        other: "Campañas"
+      user:
+        one: "Usuario"
+        other: "Usuarios"
+      task:
+        one: "Tarea"
+        other: "Tareas"
+      delegation:
+        one: "Delegación"
+        other: "Delegaciones"
+      management_type:
+        one: "Tipo de Gestión"
+        other: "Tipos de Gestión"
+      result_type:
+        one: "Tipo de Resultado"
+        other: "Tipos de Resultado"
+      anomaly_type:
+        one: "Tipo de Anomalía"
+        other: "Tipos de Anomalía"
+      role:
+        one: "Rol"
+        other: "Roles"
+      client:
+        one: "Cliente"
+        other: "Clientes"
+      contractor:
+        one: "Contratista"
+        other: "Contratistas"
+
+      comment:
+        one: "Comentario"
+        other: "Comentarios"
+      active_admin/comment:
+        one: "Comentario"
+        other: "Comentarios"
+    attributes:
+      active_admin/comment:
+        namespace: "Espacio de nombres"
+        body: "Cuerpo"
+        resource_type: "Tipo de recurso"
+        author_type: "Tipo de autor"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      anomaly_type:
+        code: "Código"
+        description: "Descripción"
+        name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        result_type: "Tipo de Resultado"
+      campaign:
+        finish_date: "Fecha inicio"
+        init_date: "Fecha fin"
+        number: "Número"
+        period: "Periodo"
+        source: "Fuente"
+        state: "Estado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      client:
+        address: "Dirección"
+        agreed_bills: "Cuotas Acordadas"
+        departament: "Departamento"
+        duplicator: "Duplicador"
+        energy_debt: "Deuda Energía"
+        financed_debt: "Deuda Financiada"
+        id_number: "Cédula"
+        irregular_debt: "Deuda Irregular"
+        measurer: "Contador"
+        measurer_brand: "Marca Contador"
+        measurer_type: "Tipo Contador"
+        municipality: "Municipio"
+        name: "Nombre"
+        neighborhood: "Barrio"
+        number: "Número"
+        overdue_bills: "Facturas Vencidas"
+        phone: "Teléfono"
+        rate: "Tarifa"
+        reading_itinerary: "Itinerario Lectura"
+        route: "Ruta"
+        state: "Estado"
+        street_name: "Nombre Vía"
+        street_type: "Tipo Vía"
+        third_party_debt: "Deuda terceros"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        delegation: "Delegación"
+      contractor:
+        code: "Código"
+        name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      delegation:
+        code: "Código"
+        name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      management_type:
+        code: "Código"
+        description: "Descripción"
+        name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      result_type:
+        code: "Código"
+        description: "Descripción"
+        name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        management_type: "Tipo de Gestión"
+      role:
+        code: "Código"
+        name: "Nombre"
+        description: "Descripción"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+      task:
+        code: "Código"
+        name: "Nombre"
+        description: "Descripción"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        collection_entity: "Entidad Recaudo"
+        commitment_date: "F.Com.Pago"
+        dataphone_payment: "Pago Datafono"
+        due_date: "Fecha Entrega"
+        estimated_time: "Tiempo Estimado"
+        id_number: "Cédula"
+        latitude: "Latitud"
+        longitude: "Longitud"
+        management_date: "Fecha Gestion"
+        observations: "Observaciones"
+        payment_date: "Fecha de Pago"
+        payment_holder: "Titular de Pago"
+        personal_contact: "Contacto Personal"
+        phone: "Teléfono"
+        reading_signature: "Lectura"
+        used_time: "Hora Duración" 
+        validity: "Validez"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        anomaly_type: "Tipo de Anomalía"
+        campaign: "Campaña"
+        client: "Cliente"
+        management_type: "Tipo de Gestión"
+        result_type: "Tipo de Resultado"
+        user: "Gestor"
+
+        address: "Dirección"
+        agreed_bills: "Cuotas Acordadas"
+        departament: "Departamento"
+        duplicator: "Duplicador"
+        energy_debt: "Deuda Energía"
+        financed_debt: "Deuda Financiada"
+        id_number: "Cédula"
+        irregular_debt: "Deuda Irregular"
+        measurer: "Contador"
+        measurer_brand: "Marca Contador"
+        measurer_type: "Tipo Contador"
+        municipality: "Municipio"
+        name: "Nombre"
+        neighborhood: "Barrio"
+        number: "Número"
+        overdue_bills: "Facturas Vencidas"
+        phone: "Teléfono"
+        rate: "Tarifa"
+        reading_itinerary: "Itinerario Lectura"
+        route: "Ruta"
+        state: "Estado"
+        street_name: "Nombre Vía"
+        street_type: "Tipo Vía"
+        third_party_debt: "Deuda terceros"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        delegation: "Delegación"
+      user:
+        active: "Activo"
+        address: "Dirección"
+        id_number: "Cédula"
+        lastname: "Apellido"
+        latitude: "Latitud"
+        longitude: "Longitud"
+        name: "Nombre"
+        phone: "Teléfono"
+        position: "Cargo"
+        contractor: "Contratista"
+        delegation: "Delegación"
+        role: "Rol"
+        confirmation_sent_at: "Confirmación enviada a"
+        confirmation_token: "Código de confirmación"
+        confirmed_at: "Confirmado en"
+        created_at: "Creado en"
+        current_password: "Contraseña actual"
+        current_sign_in_at: "Fecha del ingreso actual"
+        current_sign_in_ip: "IP del ingreso actual"
+        email: "Email"
+        encrypted_password: "Contraseña cifrada"
+        failed_attempts: "Intentos fallidos"
+        last_sign_in_at: "Fecha del último ingreso"
+        last_sign_in_ip: "IP del último inicio"
+        locked_at: "Fecha de bloqueo"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de la contraseña"
+        remember_created_at: "Fecha de 'Recordarme'"
+        remember_me: "Recordarme"
+        reset_password_sent_at: "Fecha de envío de código para contraseña"
+        reset_password_token: "Código para restablecer contraseña"
+        sign_in_count: "Cantidad de ingresos"
+        unconfirmed_email: "Email no confirmado"
+        unlock_token: "Código de desbloqueo"
+        updated_at: "Actualizado en"
+  active_admin:
+    dashboard: "Inicio"
+    dashboard_welcome:
+      welcome: "Bienvenido a Active Admin. Esta es la página de inicio predeterminada."
+      call_to_action: "Para agregar secciones edite 'app/admin/dashboard.rb'"
+    view: "Ver"
+    edit: "Editar"
+    delete: "Eliminar"
+    delete_confirmation: "¿Está seguro de que quiere eliminar esto?"
+    create_another: "Crear otro %{model}"
+    new_model: "Añadir %{model}"
+    edit_model: "Editar %{model}"
+    delete_model: "Eliminar %{model}"
+    details: "Detalles de %{model}"
+    cancel: "Cancelar"
+    empty: "Vacío"
+    previous: "Anterior"
+    next: "Siguiente"
+    download: "Descargar:"
+    has_many_new: "Añadir %{model}"
+    has_many_delete: "Eliminar"
+    has_many_remove: "Quitar"
+    move: "Mover"
+    filters:
+      buttons:
+        filter: "Filtrar"
+        clear: "Quitar Filtros"
+      predicates:
+        contains: "Contiene"
+        equals: "Igual a"
+        starts_with: "Empieza con"
+        ends_with: "Termina con"
+        greater_than: "Mayor que"
+        less_than: "Menor que"
+        gteq_datetime: "Mayor o igual que"
+        lteq_datetime: "Menor o igual que"
+        from: "Desde"
+        to: "Hasta"
+    scopes:
+      all: "Todos"
+    search_status:
+      headline: "Estado de la búsqueda:"
+      current_scope: "Alcance:"
+      current_filters: "Filtros actuales:"
+      no_current_filters: "Ninguno"
+    status_tag:
+      "yes": "Sí"
+      "no": "No"
+    main_content: "Por favor implemente %{model}#main_content para mostrar contenido."
+    logout: "Salir"
+    powered_by: "Funciona con %{active_admin} %{version}"
+    sidebars:
+      filters: "Filtros"
+      search_status: "Estado de la búsqueda"
+    pagination:
+      empty: "No se han encontrado %{model}"
+      one: "Mostrando <b>1</b> %{model}"
+      one_page: "Mostrando <b>un total de %{n}</b> %{model}"
+      multiple: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de un total de <b>%{total}</b>"
+      multiple_without_total: "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      per_page: "Por página: "
+      entry:
+        one: "registro"
+        other: "registros"
+    any: "Cualquiera"
+    blank_slate:
+      content: "No hay %{resource_name} aún."
+      link: "Añadir"
+    dropdown_actions:
+      button_label: "Acciones"
+    batch_actions:
+      button_label: "Acciones en masa"
+      default_confirmation: "¿Seguro que quieres hacer esto?"
+      delete_confirmation: "Eliminar %{plural_model}: ¿Está seguro?"
+      succesfully_destroyed:
+        one: "Se ha destruido 1 %{model} con éxito"
+        other: "Se han destruido %{count} %{plural_model} con éxito"
+      selection_toggle_explanation: "(Cambiar selección)"
+      action_label: "%{title} seleccionados"
+      labels:
+        destroy: "Borrar"
+    comments:
+      created_at: "Fecha de creación"
+      resource_type: "Tipo de recurso"
+      author_type: "Tipo de autor"
+      body: "Cuerpo"
+      author: "Autor"
+      add: "Comentar"
+      delete: "Borrar Comentario"
+      delete_confirmation: "¿Está seguro que desea borrar este comentario?"
+      resource: "Recurso"
+      no_comments_yet: "No hay comentarios aún."
+      author_missing: "Anónimo"
+      title_content: "Comentarios (%{count})"
+      errors:
+        empty_text: "El comentario no fue guardado, el texto estaba vacío."
+
+    unsupported_browser:
+      headline: "Por favor tenga en cuenta que Active Admin no soporta versiones de Internet Explorer menores a 8."
+      recommendation: "Recomendamos que actualice a la última versión de <a href=\"http://windows.microsoft.com/ie\">Internet Explorer</a>, <a href=\"https://chrome.google.com/\">Google Chrome</a>, o <a href=\"https://mozilla.org/firefox/\">Firefox</a>."
+      turn_off_compatibility_view: "Si está usando IE 9 o superior, asegúrese de <a href=\"https://support.microsoft.com/es-es/help/17471\">apagar la \"Vista de compatibilidad\"</a>."
+    access_denied:
+      message: "No está autorizado/a a realizar esta acción."
+    index_list:
+      table: "Tabla"
+      block: "Lista"
+      grid: "Grilla"
+      blog: "Blog"
