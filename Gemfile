@@ -10,6 +10,7 @@ gem 'arctic_admin', '~> 1.5' # responsive theme for Active Admin
 gem 'bcrypt', '~> 3.1.7' # hashing passwords
 gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching
 gem 'devise', '~> 4.4', '>= 4.4.3' # authentication
+gem 'devise-i18n', '~> 1.6', '>= 1.6.4' # Translations for the devise gem
 gem 'font-awesome-sass', '~> 5.2.0'
 gem 'jbuilder', '~> 2.5' # Create JSON structures via a Builder-style DSL
 gem 'jwt' # JSON Web Token
