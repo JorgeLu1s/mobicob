@@ -14,6 +14,7 @@ gem 'devise-i18n', '~> 1.6', '>= 1.6.4' # Translations for the devise gem
 gem 'font-awesome-sass', '~> 5.2.0'
 gem 'jbuilder', '~> 2.5' # Create JSON structures via a Builder-style DSL
 gem 'jwt' # JSON Web Token
+gem 'kaminari-i18n', '~> 0.3.2' # Translations for the kaminari gem
 gem 'knock', '~> 2.1', '>= 2.1.1' # Authentication based on JWT
 gem 'pg', '>= 0.18', '< 2.0' # Ruby interface for PostgreSQL
 gem 'puma', '~> 3.11' # HTTP 1.1 server
