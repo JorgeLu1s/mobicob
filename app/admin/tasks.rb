@@ -452,12 +452,12 @@ ActiveAdmin.register Task do
   csv col_sep: '|' do
     column("Delegacion") { |task|
       if task.client != nil
-        task.client.delegation.code+" - "+task.client.delegation.name
+        task.client.delegation.code
       end
     }
     column("Contratista") {  |task|
       if task.user != nil && task.user.contractor != nil
-        task.user.contractor.code+" - "+task.user.contractor.name
+        task.user.contractor.code
       end
     }
     column("#Campaña") { |task|
@@ -487,12 +487,12 @@ ActiveAdmin.register Task do
     }
     column("T.Gestion") { |task|
       if task.management_type != nil
-        task.management_type.name
+        task.management_type.code
       end
     }
     column("Resultado") { |task|
       if task.result_type != nil
-        task.result_type.name
+        task.result_type.code
       end
     }
     column("Anomalia") { |task|
