@@ -303,7 +303,7 @@ ActiveAdmin.register Task do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    f.inputs do
+    f.inputs "Asignación" do
       f.input :plan
       f.input :validity, as: :select,
         collection: Task.validities.keys.map{ |item| [item.titleize, item] }
@@ -312,11 +312,34 @@ ActiveAdmin.register Task do
       f.input :user, as: :select, collection: assignable_users
       f.input :due_date
       f.input :estimated_time
-      unless f.object.new_record?
+    end
+    unless f.object.new_record?
+      f.inputs "Resultado" do
         f.input :management_date
         f.input :management_type
-        f.input :result_type
-        f.input :anomaly_type
+
+        f.input :result_type,  :as => :select, :input_html =>
+          {
+            'data-option-dependent' => true,
+            'data-option-url' => '/admin/result_types.json?q[management_type_id_eq]=',
+            'data-option-observed' => 'task_management_type_id'
+          },
+          :collection => (resource.management_type ?
+            resource.management_type.result_types.collect {
+              |result_type| [result_type.name, result_type.id]
+            } : [])
+
+        f.input :anomaly_type, :as => :select, :input_html =>
+          {
+            'data-option-dependent' => true,
+            'data-option-url' => '/admin/anomaly_types.json?q[result_type_id_eq]=',
+            'data-option-observed' => 'task_result_type_id'
+          },
+          :collection => (resource.result_type ?
+            resource.result_type.anomaly_types.collect {
+              |anomaly_type| [anomaly_type.name, anomaly_type.id]
+            } : [])
+
         f.input :collection_entity
         f.input :payment_date
         f.input :commitment_date
