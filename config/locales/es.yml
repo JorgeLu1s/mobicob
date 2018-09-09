@@ -57,6 +57,14 @@ es:
       default: "%d/%m/%Y %H:%M"
       short: "%b %d"
       long: "%B %d, %Y"
+  datetime:
+    prompts:
+      year:   "Año"
+      month:  "Mes"
+      day:    "Día"
+      hour:   "Hora"
+      minute: "Minuto"
+      second: "Segundo"
   activerecord:
     errors:
         models:
@@ -116,7 +124,10 @@ es:
         name: "Nombre"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
-        result_type: "Tipo de Resultado"
+        anomaly_type: "Tipo de Anomalía"
+        result_types: "Tipos de Resultado"
+        add_result_types: "Agregar Tipo de Resultado"
+        tasks: "Tareas"
       campaign:
         finish_date: "Fecha inicio"
         init_date: "Fecha fin"
@@ -126,6 +137,8 @@ es:
         state: "Estado"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
+        tasks: "Tareas"
+        import_campaigns: "Importar Campañas"
       client:
         address: "Dirección"
         agreed_bills: "Cuotas Acordadas"
@@ -164,10 +177,23 @@ es:
         name: "Nombre"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
+        users: "Usuarios"
+        clients: "Clientes"
+      management_result_match:
+        management_type: "Tipo de Gestión"
+        result_type: "Tipo de Resultado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
       management_type:
         code: "Código"
         description: "Descripción"
         name: "Nombre"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de actualización"
+        tasks: "Tareas"
+      result_anomaly_match:
+        result_type: "Tipo de Resultado"
+        anomaly_type: "Tipo de Anomalía"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
       result_type:
@@ -176,14 +202,22 @@ es:
         name: "Nombre"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
-        management_type: "Tipo de Gestión"
+        result_type: "Tipo de Resultado"
+        management_types: "Tipos de Gestión"
+        add_management_type: "Agregar Tipo de Gestión"
+        tasks: "Tareas"
       role:
         code: "Código"
         name: "Nombre"
         description: "Descripción"
         created_at: "Fecha de creación"
         updated_at: "Fecha de actualización"
+        users: "Usuarios"
       task:
+        assignment: "Asignación"
+        result: "Resultado"
+        import_tasks: "Importar Tareas"
+        import_tasks_result: "Importar Resultado Tareas"
         code: "Código"
         name: "Nombre"
         description: "Descripción"
@@ -191,13 +225,16 @@ es:
         updated_at: "Fecha de actualización"
         collection_entity: "Entidad Recaudo"
         commitment_date: "F.Com.Pago"
-        dataphone_payment: "Pago Datafono"
+        dataphone_payment: "Pago Datáfono"
+        period: "Periodo"
+        contractor: "Contratista"
         due_date: "Fecha Entrega"
         estimated_time: "Tiempo Estimado"
         id_number: "Cédula"
         latitude: "Latitud"
         longitude: "Longitud"
         management_date: "Fecha Gestion"
+        management_date_not_null: "Con Fecha de Gestión"
         observations: "Observaciones"
         payment_date: "Fecha de Pago"
         payment_holder: "Titular de Pago"
@@ -301,6 +338,7 @@ es:
     has_many_delete: "Eliminar"
     has_many_remove: "Quitar"
     move: "Mover"
+    csv_imported_ok: "CSV importado correctamente!"
     filters:
       buttons:
         filter: "Filtrar"

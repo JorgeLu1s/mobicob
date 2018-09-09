@@ -5,7 +5,7 @@ ActiveAdmin.register Campaign do
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Importar Campañas', admin_campaigns_import_path
+    link_to I18n.t('activerecord.attributes.campaign.import_campaigns'), admin_campaigns_import_path
   end
 
   filter :period
@@ -141,7 +141,7 @@ ActiveAdmin.register Campaign do
           #:estimated_time
         end
       end
-      redirect_to admin_campaigns_path, notice: "CSV imported successfully!"
+      redirect_to admin_campaigns_path, notice: I18n.t('active_admin.csv_imported_ok')
     rescue StandardError => e
       redirect_to admin_campaigns_path, alert: e.to_s
       puts e

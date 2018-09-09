@@ -60,13 +60,15 @@ ActiveAdmin.register AnomalyType do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    f.inputs do
+    f.inputs I18n.t('activerecord.attributes.anomaly_type.anomaly_type') do
       f.input :code
       f.input :name
       f.input :description
+    end
+    f.inputs I18n.t('activerecord.attributes.anomaly_type.result_types') do
       f.has_many :result_anomaly_matches, allow_destroy: true,
-                  heading: 'Tipos de Resultado',
-                  new_record: 'Agregar Tipo de Resultado' do |n_f|
+                  heading: false,
+                  new_record: I18n.t('activerecord.attributes.anomaly_type.add_result_types') do |n_f|
         n_f.input :result_type
       end
     end

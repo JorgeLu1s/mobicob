@@ -9,12 +9,12 @@ ActiveAdmin.register Task do
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Importar Tareas', admin_tasks_import_path
+    link_to I18n.t('activerecord.attributes.task.import_tasks'), admin_tasks_import_path
   end
 
   action_item only: :index,
   if: proc { current_user != nil && allowed_roles.values.include?(current_user.role.code) } do
-    link_to 'Importar Resultado Tareas', admin_task_results_import_path
+    link_to I18n.t('activerecord.attributes.task.import_tasks_result'), admin_task_results_import_path
   end
 
   filter :campaign
@@ -22,9 +22,9 @@ ActiveAdmin.register Task do
   filter :user
   filter :due_date
   filter :result_type
-  filter :management_type_id
-  filter :anomaly_type_id
-  filter :management_date_null, :as => :boolean
+  filter :management_type
+  filter :anomaly_type
+  filter :management_date_not_null, :as => :boolean
 
   controller do
     helper_method :allowed_roles, :assignable_users
@@ -303,7 +303,7 @@ ActiveAdmin.register Task do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    f.inputs "Asignación" do
+    f.inputs I18n.t('activerecord.attributes.task.assignment') do
       f.input :plan
       f.input :validity, as: :select,
         collection: Task.validities.keys.map{ |item| [item.titleize, item] }
@@ -314,7 +314,7 @@ ActiveAdmin.register Task do
       f.input :estimated_time
     end
     unless f.object.new_record?
-      f.inputs "Resultado" do
+      f.inputs I18n.t('activerecord.attributes.task.result') do
         f.input :management_date
         f.input :management_type
 
@@ -409,7 +409,7 @@ ActiveAdmin.register Task do
           raise '#Campaña, email and Nic are required and must be in the system'
         end
       end
-      redirect_to admin_tasks_path, notice: "CSV imported successfully!"
+      redirect_to admin_tasks_path, notice: I18n.t('active_admin.csv_imported_ok')
     rescue StandardError => e
       redirect_to admin_tasks_path, alert: e.to_s
       puts e
@@ -465,7 +465,7 @@ ActiveAdmin.register Task do
           raise 'Tarea, Gestor, T.Gestion, Resultado and Anomalia are required and must be in the system'
         end
       end
-      redirect_to admin_tasks_path, notice: "CSV imported successfully!"
+      redirect_to admin_tasks_path, notice: I18n.t('active_admin.csv_imported_ok')
     rescue StandardError => e
       redirect_to admin_tasks_path, alert: e.to_s
       puts e

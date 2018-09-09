@@ -59,13 +59,15 @@ ActiveAdmin.register ResultType do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    f.inputs do
+    f.inputs I18n.t('activerecord.attributes.result_type.result_type') do
       f.input :code
       f.input :name
       f.input :description
+    end
+    f.inputs I18n.t('activerecord.attributes.result_type.management_types') do
       f.has_many :management_result_matches, allow_destroy: true,
-                  heading: 'Tipos de Gestión',
-                  new_record: 'Agregar Tipo de Gestión' do |n_f|
+                  heading: false,
+                  new_record: I18n.t('activerecord.attributes.result_type.add_management_type') do |n_f|
         n_f.input :management_type
       end
     end

@@ -31,3 +31,24 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      anomaly_type:
+        anomaly_type: "Anomaly Type"
+        result_types: "Result Types"
+        add_result_types: "Add Result Type"
+      campaign:
+        import_campaigns: "Import Campaigns"
+        csv_omported_ok: "CSV imported successfully!"
+      result_type:
+        result_type: "Result Type"
+        management_types: "Management Types"
+        add_management_type: "Add Management Type"
+      task:
+        assignment: "Assignment"
+        result: "Result"
+        import_tasks: "Import Tasks"
+        import_tasks_result: "Import Tasks Results"
+        management_date_not_null: "With Management Date"
+  active_admin:
+    csv_imported_ok: "CSV imported successfully!"
