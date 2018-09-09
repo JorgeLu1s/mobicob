@@ -1,11 +1,12 @@
 ActiveAdmin.register ResultType do
-  permit_params %i[id code name description management_type_id]
+  permit_params %i[id code name description management_type_id],
+    management_result_matches_attributes: %i[id management_type_id result_type_id _destroy]
 
   menu priority: 9
 
   filter :code
   filter :name
-  filter :management_type
+  filter :management_types
 
   controller do
     helper_method :allowed_roles
@@ -31,16 +32,27 @@ ActiveAdmin.register ResultType do
     id_column
     column :code
     column :name
-    column :management_type
     column :created_at
+    column :management_types do |result|
+      result.management_types.map{
+        |management| link_to(management.name, admin_management_type_path(management))
+      }.join(", ").html_safe
+    end
     actions
   end
 
   show do |result_type|
     attributes_table do
-      rows :id, :code, :name, :description, :management_type, :created_at, :updated_at
+      rows :id, :code, :name, :description, :created_at, :updated_at
+      row :management_types do
+          result_type.management_types.map{ |management|
+            link_to(management.name, admin_management_type_path(management))
+          }.join(", ").html_safe
+      end
       row :tasks do
-          result_type.tasks.map{ |task| link_to(task.id, admin_task_path(task)) }.join(", ").html_safe
+          result_type.tasks.map{ |task|
+            link_to(task.id, admin_task_path(task))
+          }.join(", ").html_safe
       end
     end
   end
@@ -51,7 +63,11 @@ ActiveAdmin.register ResultType do
       f.input :code
       f.input :name
       f.input :description
-      f.input :management_type
+      f.has_many :management_result_matches, allow_destroy: true,
+                  heading: 'Tipos de Gestión',
+                  new_record: 'Agregar Tipo de Gestión' do |n_f|
+        n_f.input :management_type
+      end
     end
     f.actions
   end

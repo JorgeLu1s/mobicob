@@ -1,11 +1,12 @@
 ActiveAdmin.register AnomalyType do
-  permit_params %i[id code name description result_type_id]
+  permit_params %i[id code name description result_type_id],
+    result_anomaly_matches_attributes: %i[id result_type_id anomaly_type_id _destroy]
 
   menu priority: 10
 
   filter :code
   filter :name
-  filter :result_type
+  filter :result_types
 
   controller do
     helper_method :allowed_roles
@@ -32,16 +33,27 @@ ActiveAdmin.register AnomalyType do
     id_column
     column :code
     column :name
-    column :result_type
     column :created_at
+    column :result_types do |anomaly|
+      anomaly.result_types.map{
+        |result| link_to(result.name, admin_result_type_path(result))
+      }.join(", ").html_safe
+    end
     actions
   end
 
   show do |anomaly_type|
     attributes_table do
-      rows :id, :code, :name, :description, :result_type, :created_at, :updated_at
+      rows :id, :code, :name, :description, :created_at, :updated_at
+      row :result_types do
+          anomaly_type.result_types.map{ |result|
+            link_to(result.name, admin_result_type_path(result))
+          }.join(", ").html_safe
+      end
       row :tasks do
-          anomaly_type.tasks.map{ |task| link_to(task.id, admin_task_path(task)) }.join(", ").html_safe
+          anomaly_type.tasks.map{ |task|
+            link_to(task.id, admin_task_path(task))
+          }.join(", ").html_safe
       end
     end
   end
@@ -52,7 +64,11 @@ ActiveAdmin.register AnomalyType do
       f.input :code
       f.input :name
       f.input :description
-      f.input :result_type
+      f.has_many :result_anomaly_matches, allow_destroy: true,
+                  heading: 'Tipos de Resultado',
+                  new_record: 'Agregar Tipo de Resultado' do |n_f|
+        n_f.input :result_type
+      end
     end
     f.actions
   end

@@ -321,7 +321,7 @@ ActiveAdmin.register Task do
         f.input :result_type,  :as => :select, :input_html =>
           {
             'data-option-dependent' => true,
-            'data-option-url' => '/admin/result_types.json?q[management_type_id_eq]=',
+            'data-option-url' => '/admin/result_types.json?q[management_result_matches_management_type_id_eq]=',
             'data-option-observed' => 'task_management_type_id'
           },
           :collection => (resource.management_type ?
@@ -332,7 +332,7 @@ ActiveAdmin.register Task do
         f.input :anomaly_type, :as => :select, :input_html =>
           {
             'data-option-dependent' => true,
-            'data-option-url' => '/admin/anomaly_types.json?q[result_type_id_eq]=',
+            'data-option-url' => '/admin/anomaly_types.json?q[result_anomaly_matches_result_type_id_eq]=',
             'data-option-observed' => 'task_result_type_id'
           },
           :collection => (resource.result_type ?
