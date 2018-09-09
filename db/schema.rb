@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_27_034930) do
+ActiveRecord::Schema.define(version: 2018_09_09_170126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2018_08_27_034930) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "result_type_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -99,6 +98,15 @@ ActiveRecord::Schema.define(version: 2018_08_27_034930) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "management_result_matches", force: :cascade do |t|
+    t.bigint "management_type_id"
+    t.bigint "result_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["management_type_id"], name: "index_management_result_matches_on_management_type_id"
+    t.index ["result_type_id"], name: "index_management_result_matches_on_result_type_id"
+  end
+
   create_table "management_types", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -107,13 +115,21 @@ ActiveRecord::Schema.define(version: 2018_08_27_034930) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "result_anomaly_matches", force: :cascade do |t|
+    t.bigint "result_type_id"
+    t.bigint "anomaly_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anomaly_type_id"], name: "index_result_anomaly_matches_on_anomaly_type_id"
+    t.index ["result_type_id"], name: "index_result_anomaly_matches_on_result_type_id"
+  end
+
   create_table "result_types", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "management_type_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -184,4 +200,8 @@ ActiveRecord::Schema.define(version: 2018_08_27_034930) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "management_result_matches", "management_types"
+  add_foreign_key "management_result_matches", "result_types"
+  add_foreign_key "result_anomaly_matches", "anomaly_types"
+  add_foreign_key "result_anomaly_matches", "result_types"
 end
